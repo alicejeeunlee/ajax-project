@@ -15,15 +15,20 @@
   flex-basis: 50%;
 }
 
-.wrap {
-  flex-wrap: wrap;
+@media only screen and (min-width: 768px) {
+  .col-third {
+    flex-basis: calc(100%/3);
+  }
 }
 
-.justify-center {
-  display: flex;
-  justify-content: center;
+@media only screen and (min-width: 1152px) {
+  .col-fifth {
+    flex-basis: 20%;
+  }
 }
 
-.grass {
-  background-color: #97c993;
+@media only screen and (min-width: 1300px) {
+  .col-seventh {
+    flex-basis: calc(100%/7);
+  }
 }
