@@ -1,0 +1,46 @@
+* {
+  font-family: "VT323", monospace;
+}
+
+header {
+  background: rgba(226, 224, 226, 0.75);
+}
+
+.nav {
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: 100;
+  margin-left: 0.5rem;
+}
+
+.entry-wrap {
+  border-radius: 30px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 160px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+  margin: 0.6rem 0;
+}
+
+.dual-type {
+  background: linear-gradient(150deg, #93c99b 50%, #ddb9ed 50%);
+}
+
+.entry-img {
+  width: 130px;
+  object-fit: contain;
+}
+
+.entry-description {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
