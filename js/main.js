@@ -1,56 +1,33 @@
-function getPokemonData(id) {
+function getPokemonEntry() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + id);
+  xhr.open('GET', 'https://pokeapi.co/api/v2/pokedex/2');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var APIdata = xhr.response;
-    var pokemon = {};
-    var pokeID = id.toString().padStart(3, '0');
-    pokemon.id = pokeID;
-    pokemon.name = APIdata.name;
-    pokemon.height = APIdata.height;
-    pokemon.weight = APIdata.weight;
-    pokemon.abilities = [];
-    for (var i = 0; i < APIdata.abilities.length; i++) {
-      pokemon.abilities.push(APIdata.abilities[i].ability.name);
-    }
-    pokemon.types = [];
-    for (var k = 0; k < APIdata.types.length; k++) {
-      pokemon.types.push(APIdata.types[k].type.name);
-    }
-    pokemon.stats = [];
-    for (var j = 0; j < APIdata.stats.length; j++) {
-      var stat = {};
-      stat.name = APIdata.stats[j].stat.name;
-      stat.base_stat = APIdata.stats[j].base_stat;
-      pokemon.stats.push(stat);
-    }
-    pokemon.imgURL = APIdata.sprites.other['official-artwork'].front_default;
-    data.pokemon.push(pokemon);
+    var allPokemon = APIdata.pokemon_entries;
     var $row = document.querySelector('.allPokemon');
-    $row.appendChild(renderPokemon(pokemon));
+    for (var i = 0; i < allPokemon.length; i++) {
+      var pokemon = {};
+      pokemon.entry_number = allPokemon[i].entry_number;
+      pokemon.id = allPokemon[i].entry_number.toString().padStart(3, '0');
+      pokemon.name = allPokemon[i].pokemon_species.name;
+      $row.appendChild(renderPokemon(pokemon));
+    }
   });
   xhr.send();
 }
 
-for (var i = 1; i <= 151; i++) {
-  getPokemonData(i);
-}
+getPokemonEntry();
 
 function renderPokemon(pokemon) {
   var $outerDiv = document.createElement('div');
   $outerDiv.setAttribute('class', 'col-half col-third col-fifth col-seventh justify-center');
   var $entryWrapDiv = document.createElement('div');
   $entryWrapDiv.setAttribute('class', 'entry-wrap');
-  if (pokemon.types.length === 1) {
-    $entryWrapDiv.style.backgroundColor = '#' + data.typeColors[pokemon.types[0]];
-  } else {
-    $entryWrapDiv.style.background = 'linear-gradient(150deg, #' + data.typeColors[pokemon.types[0]] + ' 50%, #' + data.typeColors[pokemon.types[1]] + ' 50%)';
-  }
   $outerDiv.appendChild($entryWrapDiv);
   var $img = document.createElement('img');
   $img.setAttribute('class', 'entry-img');
-  $img.setAttribute('src', pokemon.imgURL);
+  $img.setAttribute('src', 'images/pokemon/' + pokemon.entry_number + '.png');
   $img.setAttribute('alt', pokemon.name);
   $entryWrapDiv.appendChild($img);
   var $name = document.createElement('p');
@@ -64,6 +41,6 @@ function renderPokemon(pokemon) {
   return $outerDiv;
 }
 
-function capitalize(word) {
-  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+function capitalize(name) {
+  return name[0].toUpperCase() + name.slice(1).toLowerCase();
 }
