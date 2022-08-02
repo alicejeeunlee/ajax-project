@@ -17,6 +17,7 @@ h1 {
 }
 
 .entry-wrap {
+  background-color: whitesmoke;
   border-radius: 30px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   width: 160px;
@@ -30,10 +31,6 @@ h1 {
 
 .gap {
   row-gap: 15px;
-}
-
-.dual-type {
-  background: linear-gradient(150deg, #93c99b 50%, #ddb9ed 50%);
 }
 
 .entry-img {
@@ -60,10 +57,6 @@ h1 {
 .justify-center {
   display: flex;
   justify-content: center;
-}
-
-.grass {
-  background-color: #97c993;
 }
 
 @media only screen and (min-width: 1152px) {
