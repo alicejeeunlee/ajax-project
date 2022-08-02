@@ -4,7 +4,6 @@ function getPokemonData(id) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var APIdata = xhr.response;
-    // console.log(APIdata);
     var pokemon = {};
     var pokeID = id.toString().padStart(3, '0');
     pokemon.id = pokeID;
