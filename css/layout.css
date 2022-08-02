@@ -1,0 +1,34 @@
+.container {
+  max-width: 90%;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+}
+
+.col-full {
+  flex-basis: 100%;
+}
+
+.col-half {
+  flex-basis: 50%;
+}
+
+@media only screen and (min-width: 768px) {
+  .col-third {
+    flex-basis: calc(100%/3);
+  }
+}
+
+@media only screen and (min-width: 1152px) {
+  .col-fifth {
+    flex-basis: 20%;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .col-seventh {
+    flex-basis: calc(100%/7);
+  }
+}
