@@ -31,12 +31,40 @@ function getPokemonData(id) {
       stat.base_stat = APIdata.stats[j].base_stat;
       pokemon.stats.push(stat);
     }
-    pokemon.img = APIdata.sprites.other['official-artwork'].front_default;
+    pokemon.imgURL = APIdata.sprites.other['official-artwork'].front_default;
     data.pokemon.push(pokemon);
+    var $row = document.querySelector('.allPokemon');
+    $row.appendChild(renderPokemon(pokemon));
   });
   xhr.send();
 }
 
 for (var i = 1; i <= 151; i++) {
   getPokemonData(i);
+}
+
+function renderPokemon(pokemon) {
+  var $outerDiv = document.createElement('div');
+  $outerDiv.setAttribute('class', 'col-half col-third col-fifth col-seventh justify-center');
+  var $entryWrapDiv = document.createElement('div');
+  $entryWrapDiv.setAttribute('class', 'entry-wrap');
+  $outerDiv.appendChild($entryWrapDiv);
+  var $img = document.createElement('img');
+  $img.setAttribute('class', 'entry-img');
+  $img.setAttribute('src', pokemon.imgURL);
+  $img.setAttribute('alt', pokemon.name);
+  $entryWrapDiv.appendChild($img);
+  var $name = document.createElement('p');
+  $name.setAttribute('class', 'entry-name');
+  $name.textContent = capitalize(pokemon.name);
+  $entryWrapDiv.appendChild($name);
+  var $id = document.createElement('p');
+  $id.setAttribute('class', 'entry-id');
+  $id.textContent = pokemon.id;
+  $entryWrapDiv.appendChild($id);
+  return $outerDiv;
+}
+
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
 }
