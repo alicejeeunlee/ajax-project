@@ -59,6 +59,111 @@ h1 {
   justify-content: center;
 }
 
+.hidden {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.card-nav {
+  padding: 1rem 0.5rem;
+}
+
+.card-wrap {
+  background-color: #97c993;
+  width: 100vw;
+  height: 100vh;
+}
+
+.text-boundary {
+  background-color: white;
+  position: absolute;
+  width: 100vw;
+  height: 70vh;
+  left: 0;
+  bottom: 0;
+  border-radius: 100px 100px 0 0;
+  z-index: 1;
+}
+
+.info-icon {
+  width: 35px;
+  margin-right: 1.2rem;
+}
+
+i {
+  color: white;
+}
+
+.card-img {
+  width: 280px;
+  position: absolute;
+  z-index: 2;
+  top: 4.5rem;
+  left: 3.5rem;
+}
+
+.card-text-padding {
+  padding: 6rem 1.5rem;
+}
+
+.card-id {
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+}
+
+.card-name {
+  font-size: 46px;
+  margin: 0;
+  text-align: center;
+}
+
+.type-box {
+  display: flex;
+  justify-content: center;
+}
+
+.type-1 {
+  font-size: 26px;
+  text-align: center;
+  background-color: #97c993;
+  width: 100px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+}
+
+.type-2 {
+  font-size: 26px;
+  text-align: center;
+  background-color: #ddb9ed;
+  width: 100px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+
+.info-box {
+  margin-top: 4rem;
+}
+
+.card-p {
+  font-size: 26px;
+}
+
 @media only screen and (min-width: 1152px) {
   h1 {
     font-size: 90px;
