@@ -28,7 +28,7 @@
       <div class="allPokemon row wrap gap">
       </div>
     </div>
-    <div class="card-wrap">
+    <div class="card-wrapper">
       <div class="container">
         <div class="row card-nav">
           <div class="col-half flex align-center">
@@ -39,23 +39,52 @@
             <i class="fa-solid fa-align-left fa-2xl"></i></button>
           </div>
         </div>
-        <img class="card-img" src="images/pokemon/1.png" alt="bulbasaur">
+        <div class="col-full card-img-wrapper">
+          <img class="card-img" src="images/pokemon/1.png" alt="bulbasaur">
+        </div>
         <div class="text-boundary">
-          <div class="row">
-            <div class="col-full card-text-padding">
+          <div class="row justify-center card-boundary">
+            <div class="col-full col-desktop-two-third col-desktop-half card-text-padding">
               <p class="card-id">001</p>
               <p class="card-name">Bulbasaur</p>
               <div class="type-box">
                 <div class="type-1">Grass</div>
                 <div class="type-2">Poison</div>
               </div>
-              <div class="info-box">
-                <p class="card-p">Abilities: Overgrow, Chlorophyll</p>
-                <p class="card-p">Height: 2' 4&quot;</p>
-                <p class="card-p">Weight: 15.2 lbs</p>
-                <p class="card-p">A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</p>
+              <div class="row info-box hidden">
+                <div class="col-full">
+                  <p>Abilities: Overgrow, Chlorophyll</p>
+                  <p>Height: 2' 4&quot;</p>
+                  <p>Weight: 15.2 lbs</p>
+                  <p>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</p>
+                </div>
               </div>
-
+              <div class="row stats-box">
+                <div class="col-two-eighth col-desktop-eighth stats-text">
+                  <p>HP</p>
+                  <p>Attack</p>
+                  <p>Defense</p>
+                  <p>Sp. Atk</p>
+                  <p>Sp. Def</p>
+                  <p>Speed</p>
+                </div>
+                <div class="col-eighth stats-num">
+                  <p id="hp">45</p>
+                  <p id="attack">49</p>
+                  <p id="defense">65</p>
+                  <p id="sp-atk">65</p>
+                  <p id="sp-def">65</p>
+                  <p id="speed">45</p>
+                </div>
+                <div class="col-five-eighth col-desktop-six-eighth">
+                  <div id="hp-bar" class="bar"></div>
+                  <div id="attack-bar" class="bar"></div>
+                  <div id="defense-bar" class="bar"></div>
+                  <div id="sp-atk-bar" class="bar"></div>
+                  <div id="sp-def-bar" class="bar"></div>
+                  <div id="speed-bar" class="bar"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

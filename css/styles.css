@@ -79,7 +79,7 @@ h1 {
   padding: 1rem 0.5rem;
 }
 
-.card-wrap {
+.card-wrapper {
   background-color: #97c993;
   width: 100vw;
   height: 100vh;
@@ -107,10 +107,12 @@ i {
 
 .card-img {
   width: 280px;
-  position: absolute;
+  position: relative;
   z-index: 2;
-  top: 4.5rem;
-  left: 3.5rem;
+}
+
+.card-img-wrapper {
+  text-align: center;
 }
 
 .card-text-padding {
@@ -157,11 +159,63 @@ i {
 }
 
 .info-box {
-  margin-top: 4rem;
+  margin-top: 2rem;
+  font-size: 26px;
 }
 
-.card-p {
+.stats-box {
+  margin-top: 1rem;
   font-size: 26px;
+}
+
+.stats-text {
+  line-height: 1.6rem;
+}
+
+.stats-num {
+  line-height: 1.6rem;
+  text-align: right;
+}
+
+.bar {
+  background-color: #ddb9ed;
+  height: 15px;
+  border-radius: 10px;
+  margin: 2.2rem 0 2.23rem 1.5rem;
+}
+
+#hp-bar {
+  width: 45%;
+}
+
+#attack-bar {
+  width: 49%;
+}
+
+#defense-bar {
+  width: 65%;
+}
+
+#sp-atk-bar {
+  width: 65%;
+}
+
+#sp-def-bar {
+  width: 65%;
+}
+
+#speed-bar {
+  width: 45%;
+}
+
+.card-boundary {
+  height: 590px;
+}
+
+@media only screen and (min-width: 400px) {
+  .card-img {
+    width: 330px;
+  }
 }
 
 @media only screen and (min-width: 1152px) {
@@ -176,5 +230,9 @@ i {
 
   .gap {
     row-gap: 50px;
+  }
+
+  .card-nav {
+    padding: 1rem 12rem;
   }
 }
