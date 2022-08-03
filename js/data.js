@@ -19,5 +19,14 @@ var data = {
     steel: '7aadbf',
     water: '6fb3f2'
   },
-  pokemon: []
+  currentPokemon: {
+    id: null,
+    name: null,
+    types: [],
+    abilities: [],
+    height: null,
+    weight: null,
+    stats: [],
+    description: null
+  }
 };

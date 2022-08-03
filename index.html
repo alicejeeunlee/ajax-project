@@ -15,7 +15,7 @@
 </head>
 <body>
   <header>
-    <div class="container nav hidden">
+    <div class="container nav">
       <div class="row">
         <div class="col-full">
           <h1>Pokédex</h1>
@@ -24,11 +24,11 @@
     </div>
   </header>
   <main>
-    <div class="container hidden">
+    <div id="homepage" class="container">
       <div class="allPokemon row wrap gap">
       </div>
     </div>
-    <div class="card-wrapper">
+    <div id="card" class="card-wrapper hidden">
       <div class="container">
         <div class="row card-nav">
           <div class="col-half flex align-center">
@@ -51,7 +51,7 @@
                 <div class="type-1">Grass</div>
                 <div class="type-2">Poison</div>
               </div>
-              <div class="row info-box hidden">
+              <div id="info" class="row info-box">
                 <div class="col-full">
                   <p>Abilities: Overgrow, Chlorophyll</p>
                   <p>Height: 2' 4&quot;</p>
@@ -59,7 +59,7 @@
                   <p>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</p>
                 </div>
               </div>
-              <div class="row stats-box">
+              <div id="stats" class="row stats-box hidden">
                 <div class="col-two-eighth col-desktop-eighth stats-text">
                   <p>HP</p>
                   <p>Attack</p>

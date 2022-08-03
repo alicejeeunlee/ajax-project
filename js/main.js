@@ -9,9 +9,9 @@ function getPokemonEntry() {
     for (var i = 0; i < allPokemon.length; i++) {
       var pokemon = {};
       pokemon.entry_number = allPokemon[i].entry_number;
-      pokemon.id = allPokemon[i].entry_number.toString().padStart(3, '0');
+      pokemon.id = pokeID(pokemon.entry_number);
       pokemon.name = allPokemon[i].pokemon_species.name;
-      $row.appendChild(renderPokemon(pokemon));
+      $row.appendChild(renderPokemonEntries(pokemon));
     }
   });
   xhr.send();
@@ -19,11 +19,11 @@ function getPokemonEntry() {
 
 getPokemonEntry();
 
-function renderPokemon(pokemon) {
+function renderPokemonEntries(pokemon) {
   var $outerDiv = document.createElement('div');
-  $outerDiv.setAttribute('class', 'col-half col-third col-fifth col-seventh justify-center');
+  $outerDiv.setAttribute('class', 'entries col-half col-third col-fifth col-seventh justify-center');
   var $entryWrapDiv = document.createElement('div');
-  $entryWrapDiv.setAttribute('class', 'entry-wrap');
+  $entryWrapDiv.setAttribute('class', 'entry-wrapper');
   $outerDiv.appendChild($entryWrapDiv);
   var $img = document.createElement('img');
   $img.setAttribute('class', 'entry-img');
@@ -43,4 +43,8 @@ function renderPokemon(pokemon) {
 
 function capitalize(name) {
   return name[0].toUpperCase() + name.slice(1).toLowerCase();
+}
+
+function pokeID(num) {
+  return num.toString().padStart(3, '0');
 }
