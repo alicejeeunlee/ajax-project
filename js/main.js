@@ -92,12 +92,18 @@ function getPokemonDescription(id) {
   xhr3.responseType = 'json';
   xhr3.addEventListener('load', function () {
     var APIdata = xhr3.response;
-    var description = APIdata.flavor_text_entries[0].flavor_text;
+    var allTextEntries = APIdata.flavor_text_entries;
+    var englishText = [];
+    for (var i = 0; i < allTextEntries.length; i++) {
+      if (allTextEntries[i].language.name === 'en') {
+        englishText.push(allTextEntries[i]);
+      }
+    }
+    var description = englishText[0].flavor_text;
     data.currentPokemon.description = editDescription(description);
     var $card = renderPokemonCard(data.currentPokemon);
     var $main = document.querySelector('main');
     $main.appendChild($card);
-
   });
   xhr3.send();
 }
