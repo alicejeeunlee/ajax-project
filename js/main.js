@@ -19,15 +19,12 @@ function getPokemonEntry() {
 
 getPokemonEntry();
 
-getPokemonDetail(1);
-
 function getPokemonDetail(id) {
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + id);
   xhr2.responseType = 'json';
   xhr2.addEventListener('load', function () {
     var APIdata = xhr2.response;
-    // console.log(APIdata);
     data.currentPokemon.entry_number = APIdata.id;
     data.currentPokemon.id = pokeID(id);
     data.currentPokemon.name = APIdata.name;
@@ -58,8 +55,10 @@ function getPokemonDescription(id) {
     var APIdata = xhr3.response;
     var description = APIdata.flavor_text_entries[0].flavor_text;
     data.currentPokemon.description = editDescription(description);
-    renderPokemonImg(data.currentPokemon);
-    renderPokemonDetails(data.currentPokemon);
+    // console.log(data.currentPokemon);
+    var $card = renderPokemonCard(data.currentPokemon);
+    var $main = document.querySelector('main');
+    $main.appendChild($card);
   });
   xhr3.send();
 }
@@ -87,6 +86,39 @@ function renderPokemonEntries(pokemon) {
   return $outerDiv;
 }
 
+function renderPokemonCard(pokemon) {
+  var $cardWrapper = document.createElement('div');
+  $cardWrapper.className = 'card-wrapper ' + data.currentPokemon.types[0];
+  var $cardContainer = document.createElement('div');
+  $cardContainer.className = 'container';
+  $cardWrapper.appendChild($cardContainer);
+  var $cardNav = document.createElement('div');
+  $cardNav.className = 'row card-nav';
+  $cardContainer.appendChild($cardNav);
+  var $backDiv = document.createElement('div');
+  $backDiv.className = 'col-half flex align-center';
+  $cardNav.appendChild($backDiv);
+  var $backIcon = document.createElement('i');
+  $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
+  $backDiv.appendChild($backIcon);
+  var $viewDiv = document.createElement('div');
+  $viewDiv.className = 'col-half flex flex-end align-center';
+  $cardNav.appendChild($viewDiv);
+  var $infoIcon = document.createElement('img');
+  $infoIcon.className = 'info-icon';
+  $infoIcon.setAttribute('src', 'images/info-icon.png');
+  $infoIcon.setAttribute('alt', 'info-icon');
+  $viewDiv.appendChild($infoIcon);
+  var $statsIcon = document.createElement('i');
+  $statsIcon.className = 'fa-solid fa-align-left fa-2xl';
+  $viewDiv.appendChild($statsIcon);
+  var $cardImg = renderPokemonImg(pokemon);
+  $cardContainer.appendChild($cardImg);
+  var $cardDetails = renderPokemonDetails(pokemon);
+  $cardContainer.appendChild($cardDetails);
+  return $cardWrapper;
+}
+
 function renderPokemonImg(pokemon) {
   var $row = document.createElement('div');
   $row.className = 'row';
@@ -98,7 +130,7 @@ function renderPokemonImg(pokemon) {
   $cardImg.setAttribute('src', 'images/pokemon/' + pokemon.entry_number + '.png');
   $cardImg.setAttribute('alt', pokemon.name);
   $cardImgWrapper.appendChild($cardImg);
-  // console.log($row);
+  return $row;
 }
 
 function renderPokemonDetails(pokemon) {
@@ -129,9 +161,9 @@ function renderPokemonDetails(pokemon) {
     $abilities.textContent = 'Abilities: ' + capitalize(pokemon.abilities[0]) + ', ' + capitalize(pokemon.abilities[1]);
   }
   var $height = document.createElement('p');
-  $height.textContent = heightConversion(pokemon.height);
+  $height.textContent = 'Height: ' + heightConversion(pokemon.height);
   var $weight = document.createElement('p');
-  $weight.textContent = weightConversion(pokemon.weight);
+  $weight.textContent = 'Weight: ' + weightConversion(pokemon.weight);
   var $description = document.createElement('p');
   $description.textContent = pokemon.description;
   $infoCol.appendChild($abilities);
@@ -139,30 +171,48 @@ function renderPokemonDetails(pokemon) {
   $infoCol.appendChild($weight);
   $infoCol.appendChild($description);
   var $statsDiv = document.createElement('div');
-  $statsDiv.className = 'row stats-box hidden';
+  $statsDiv.className = 'row stats-box';
   $nameDiv.appendChild($statsDiv);
   $statsDiv.appendChild(renderStatsName(data.currentPokemon.stats));
   $statsDiv.appendChild(renderStatsNum(data.currentPokemon.stats));
-  $statsDiv.appendChild(renderStatsBar(data.currentPokemon.stats));
-  // console.log($row);
+  $statsDiv.appendChild(renderStatsBar(data.currentPokemon.stats, data.currentPokemon.types));
+  return $row;
 }
 
-var $header = document.querySelector('#header');
 var $homepage = document.querySelector('#homepage');
-var $card = document.querySelector('#card');
-// var $info = document.querySelector('#info');
-// var $stats = document.querySelector('#stats');
-
-$homepage.addEventListener('click', handlePokemonClick);
-
-function handlePokemonClick(event) {
+$homepage.addEventListener('click', function handlePokemonClick(event) {
   if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
-    showCard();
     var closestEntryDiv = event.target.closest('.entries');
     var id = Number.parseInt(closestEntryDiv.id);
-    return id;
+    getPokemonDetail(id);
+    hideHomepage();
   }
-}
+});
+
+// var $backIcon = document.querySelector('.fa-chevron-down');
+// $backIcon.addEventListener('click', function handleBackClick(event) {
+//   if (event.target.tagName === 'I') {
+//     // var $cardWrapper = document.querySelector('.card-wrapper');
+//     // $cardWrapper.className = '.card-wrapper';
+//     var $cardImg = document.querySelector('.card-img');
+//     $cardImg.setAttribute('src', '');
+//     hideCard();
+//   }
+// });
+
+// var $infoIcon = document.querySelector('.info-icon');
+// $infoIcon.addEventListener('click', function handleInfoClick() {
+//   if (event.target.tagName === 'IMG') {
+//     showInfo();
+//   }
+// });
+
+// var $statsIcon = document.querySelector('.fa-align-left');
+// $statsIcon.addEventListener('click', function handleStatsClick() {
+//   if (event.target.tagName === 'I') {
+//     showStats();
+//   }
+// });
 
 function capitalize(name) {
   return name[0].toUpperCase() + name.slice(1).toLowerCase();
@@ -192,16 +242,29 @@ function editDescription(string) {
   return edit;
 }
 
-function showCard() {
+var $header = document.querySelector('#header');
+// var $card = document.querySelector('#card');
+// var $info = document.querySelector('#info');
+// var $stats = document.querySelector('#stats');
+
+function hideHomepage() {
   $header.className = 'container nav hidden';
   $homepage.className = 'container hidden';
-  $card.className = 'card-wrapper';
 }
 
 // function hideCard() {
 //   $header.className = 'container nav';
 //   $homepage.className = 'container';
-//   $card.className = 'card-wrapper hidden';
+// }
+
+// function showInfo() {
+//   $info.className = 'row info-box';
+//   $stats.className = 'row stats-box hidden';
+// }
+
+// function showStats() {
+//   $info.className = 'row info-box hidden';
+//   $stats.className = 'row stats-box';
 // }
 
 function renderTypeBox(types) {
@@ -209,19 +272,16 @@ function renderTypeBox(types) {
   $typeDiv.className = 'type-box';
   var $allTypes = [];
   var $div = document.createElement('div');
-  $div.className = 'type-1';
+  $div.className = 'type-1 ' + types[0];
   if (types.length === 1) {
     $div.textContent = capitalize(types[0]);
-    $div.style.backgroundColor = data.typeColors[types[0]];
     $allTypes.push($div);
   } else {
     $div.textContent = capitalize(types[0]);
-    $div.style.backgroundColor = data.typeColors[types[0]];
     $allTypes.push($div);
     var $div2 = document.createElement('div');
-    $div2.className = 'type-2';
+    $div2.className = 'type-2 ' + types[1];
     $div2.textContent = capitalize(types[1]);
-    $div2.style.backgroundColor = data.typeColors[types[1]];
     $allTypes.push($div2);
   }
   for (var i = 0; i < $allTypes.length; i++) {
@@ -230,16 +290,16 @@ function renderTypeBox(types) {
   return $typeDiv;
 }
 
-// var dummytype = ['fire'];
-// var dummy2types = ['water', 'rock'];
-
 function renderStatsName(stats) {
   var $statsName = document.createElement('div');
   $statsName.className = 'col-two-eighth col-desktop-eighth stats-text';
   var $allP = [];
   for (var i = 0; i < stats.length; i++) {
     var $p = document.createElement('p');
-    if (stats[i].name === 'special-attack') {
+    if (stats[i].name === 'hp') {
+      $p.textContent = 'HP';
+      $allP.push($p);
+    } else if (stats[i].name === 'special-attack') {
       $p.textContent = 'Sp. Atk';
       $allP.push($p);
     } else if (stats[i].name === 'special-defense') {
@@ -272,14 +332,19 @@ function renderStatsNum(stats) {
   return $statsNum;
 }
 
-function renderStatsBar(stats) {
+function renderStatsBar(stats, types) {
   var $statsBar = document.createElement('div');
   $statsBar.className = 'col-five-eighth col-desktop-six-eighth';
   var $allDiv = [];
   for (var i = 0; i < stats.length; i++) {
     var $div = document.createElement('div');
     $div.setAttribute('id', stats[i].name + '-bar');
-    $div.className = 'bar';
+    $div.style.width = stats[i].base_stat + '%';
+    if (types.length === 1) {
+      $div.className = 'bar ' + types[0];
+    } else {
+      $div.className = 'bar ' + types[1];
+    }
     $allDiv.push($div);
   }
   for (var k = 0; k < $allDiv.length; k++) {
@@ -287,5 +352,3 @@ function renderStatsBar(stats) {
   }
   return $statsBar;
 }
-
-// var statsdummy = [{ name: 'hp', base_stat: 45 }, { name: 'attack', base_stat: 49 }, { name: 'defense', base_stat: 49 }, { name: 'special-attack', base_stat: 65 }, { name: 'special-defense', base_stat: 65 }, { name: 'speed', base_stat: 45 }];
