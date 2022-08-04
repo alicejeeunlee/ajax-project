@@ -19,6 +19,45 @@ function getPokemonEntry() {
 
 getPokemonEntry();
 
+function renderPokemonEntries(pokemon) {
+  var $outerDiv = document.createElement('div');
+  $outerDiv.setAttribute('id', pokemon.entry_number);
+  $outerDiv.setAttribute('class', 'entries col-half col-third col-fifth col-seventh justify-center');
+  var $entryWrapDiv = document.createElement('div');
+  $entryWrapDiv.setAttribute('class', 'entry-wrapper');
+  $outerDiv.appendChild($entryWrapDiv);
+  var $img = document.createElement('img');
+  $img.setAttribute('class', 'entry-img');
+  $img.setAttribute('src', 'images/pokemon/' + pokemon.entry_number + '.png');
+  $img.setAttribute('alt', pokemon.name);
+  $entryWrapDiv.appendChild($img);
+  var $name = document.createElement('p');
+  $name.setAttribute('class', 'entry-name');
+  $name.textContent = capitalize(pokemon.name);
+  $entryWrapDiv.appendChild($name);
+  var $id = document.createElement('p');
+  $id.setAttribute('class', 'entry-id');
+  $id.textContent = pokemon.id;
+  $entryWrapDiv.appendChild($id);
+  return $outerDiv;
+}
+
+var $homepage = document.querySelector('#homepage');
+$homepage.addEventListener('click', function handlePokemonClick(event) {
+  if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
+    var closestEntryDiv = event.target.closest('.entries');
+    var id = Number.parseInt(closestEntryDiv.id);
+    hideHomepage();
+    getPokemonDetail(id);
+  }
+});
+
+function hideHomepage() {
+  var $header = document.querySelector('#header');
+  $header.className = 'container nav hidden';
+  $homepage.className = 'container hidden';
+}
+
 function getPokemonDetail(id) {
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + id);
@@ -55,39 +94,31 @@ function getPokemonDescription(id) {
     var APIdata = xhr3.response;
     var description = APIdata.flavor_text_entries[0].flavor_text;
     data.currentPokemon.description = editDescription(description);
-    // console.log(data.currentPokemon);
     var $card = renderPokemonCard(data.currentPokemon);
     var $main = document.querySelector('main');
     $main.appendChild($card);
+
   });
   xhr3.send();
 }
 
-function renderPokemonEntries(pokemon) {
-  var $outerDiv = document.createElement('div');
-  $outerDiv.setAttribute('id', pokemon.entry_number);
-  $outerDiv.setAttribute('class', 'entries col-half col-third col-fifth col-seventh justify-center');
-  var $entryWrapDiv = document.createElement('div');
-  $entryWrapDiv.setAttribute('class', 'entry-wrapper');
-  $outerDiv.appendChild($entryWrapDiv);
-  var $img = document.createElement('img');
-  $img.setAttribute('class', 'entry-img');
-  $img.setAttribute('src', 'images/pokemon/' + pokemon.entry_number + '.png');
-  $img.setAttribute('alt', pokemon.name);
-  $entryWrapDiv.appendChild($img);
-  var $name = document.createElement('p');
-  $name.setAttribute('class', 'entry-name');
-  $name.textContent = capitalize(pokemon.name);
-  $entryWrapDiv.appendChild($name);
-  var $id = document.createElement('p');
-  $id.setAttribute('class', 'entry-id');
-  $id.textContent = pokemon.id;
-  $entryWrapDiv.appendChild($id);
-  return $outerDiv;
+function showInfo() {
+  var $info = document.querySelector('#info');
+  var $stats = document.querySelector('#stats');
+  $info.className = 'row info-box';
+  $stats.className = 'row stats-box hidden';
+}
+
+function showStats() {
+  var $info = document.querySelector('#info');
+  var $stats = document.querySelector('#stats');
+  $info.className = 'row info-box hidden';
+  $stats.className = 'row stats-box';
 }
 
 function renderPokemonCard(pokemon) {
   var $cardWrapper = document.createElement('div');
+  $cardWrapper.setAttribute('id', pokemon.entry_number);
   $cardWrapper.className = 'card-wrapper ' + data.currentPokemon.types[0];
   var $cardContainer = document.createElement('div');
   $cardContainer.className = 'container';
@@ -101,6 +132,21 @@ function renderPokemonCard(pokemon) {
   var $backIcon = document.createElement('i');
   $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
   $backDiv.appendChild($backIcon);
+  $backIcon.addEventListener('click', function handleBackClick(event) {
+    if (event.target.tagName === 'I') {
+      data.currentPokemon.entry_number = null;
+      data.currentPokemon.id = null;
+      data.currentPokemon.name = null;
+      data.currentPokemon.types = [];
+      data.currentPokemon.abilities = [];
+      data.currentPokemon.height = null;
+      data.currentPokemon.weight = null;
+      data.currentPokemon.stats = [];
+      data.currentPokemon.description = null;
+      $cardWrapper.remove();
+      showHomepage();
+    }
+  });
   var $viewDiv = document.createElement('div');
   $viewDiv.className = 'col-half flex flex-end align-center';
   $cardNav.appendChild($viewDiv);
@@ -109,14 +155,30 @@ function renderPokemonCard(pokemon) {
   $infoIcon.setAttribute('src', 'images/info-icon.png');
   $infoIcon.setAttribute('alt', 'info-icon');
   $viewDiv.appendChild($infoIcon);
+  $infoIcon.addEventListener('click', function handleInfoClick(event) {
+    if (event.target.tagName === 'IMG') {
+      showInfo();
+    }
+  });
   var $statsIcon = document.createElement('i');
   $statsIcon.className = 'fa-solid fa-align-left fa-2xl';
   $viewDiv.appendChild($statsIcon);
+  $statsIcon.addEventListener('click', function handleStatsClick(event) {
+    if (event.target.tagName === 'I') {
+      showStats();
+    }
+  });
   var $cardImg = renderPokemonImg(pokemon);
   $cardContainer.appendChild($cardImg);
   var $cardDetails = renderPokemonDetails(pokemon);
   $cardContainer.appendChild($cardDetails);
   return $cardWrapper;
+}
+
+var $header = document.querySelector('#header');
+function showHomepage() {
+  $header.className = 'container nav';
+  $homepage.className = 'container';
 }
 
 function renderPokemonImg(pokemon) {
@@ -149,6 +211,7 @@ function renderPokemonDetails(pokemon) {
   $nameDiv.appendChild($name);
   $nameDiv.appendChild(renderTypeBox(data.currentPokemon.types));
   var $infoDiv = document.createElement('div');
+  $infoDiv.setAttribute('id', 'info');
   $infoDiv.className = 'row info-box';
   $nameDiv.appendChild($infoDiv);
   var $infoCol = document.createElement('div');
@@ -171,101 +234,14 @@ function renderPokemonDetails(pokemon) {
   $infoCol.appendChild($weight);
   $infoCol.appendChild($description);
   var $statsDiv = document.createElement('div');
-  $statsDiv.className = 'row stats-box';
+  $statsDiv.setAttribute('id', 'stats');
+  $statsDiv.className = 'row stats-box hidden';
   $nameDiv.appendChild($statsDiv);
   $statsDiv.appendChild(renderStatsName(data.currentPokemon.stats));
   $statsDiv.appendChild(renderStatsNum(data.currentPokemon.stats));
   $statsDiv.appendChild(renderStatsBar(data.currentPokemon.stats, data.currentPokemon.types));
   return $row;
 }
-
-var $homepage = document.querySelector('#homepage');
-$homepage.addEventListener('click', function handlePokemonClick(event) {
-  if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
-    var closestEntryDiv = event.target.closest('.entries');
-    var id = Number.parseInt(closestEntryDiv.id);
-    getPokemonDetail(id);
-    hideHomepage();
-  }
-});
-
-// var $backIcon = document.querySelector('.fa-chevron-down');
-// $backIcon.addEventListener('click', function handleBackClick(event) {
-//   if (event.target.tagName === 'I') {
-//     // var $cardWrapper = document.querySelector('.card-wrapper');
-//     // $cardWrapper.className = '.card-wrapper';
-//     var $cardImg = document.querySelector('.card-img');
-//     $cardImg.setAttribute('src', '');
-//     hideCard();
-//   }
-// });
-
-// var $infoIcon = document.querySelector('.info-icon');
-// $infoIcon.addEventListener('click', function handleInfoClick() {
-//   if (event.target.tagName === 'IMG') {
-//     showInfo();
-//   }
-// });
-
-// var $statsIcon = document.querySelector('.fa-align-left');
-// $statsIcon.addEventListener('click', function handleStatsClick() {
-//   if (event.target.tagName === 'I') {
-//     showStats();
-//   }
-// });
-
-function capitalize(name) {
-  return name[0].toUpperCase() + name.slice(1).toLowerCase();
-}
-
-function pokeID(num) {
-  return num.toString().padStart(3, '0');
-}
-
-function heightConversion(decimeter) {
-  var feet = decimeter * 0.328084;
-  var ft = Math.floor(feet);
-  var inches = Math.round((feet - ft) * 12);
-  return ft.toString() + "' " + inches.toString() + '"';
-}
-
-function weightConversion(hectogram) {
-  var pounds = hectogram * 0.220462;
-  var lbs = Math.round(pounds * 10) / 10;
-  return lbs.toString() + ' lbs';
-}
-
-function editDescription(string) {
-  var edit = string.replaceAll('\n', ' ');
-  edit = edit.replaceAll('\f', ' ');
-  edit = edit.replaceAll('POKéMON', 'Pokémon');
-  return edit;
-}
-
-var $header = document.querySelector('#header');
-// var $card = document.querySelector('#card');
-// var $info = document.querySelector('#info');
-// var $stats = document.querySelector('#stats');
-
-function hideHomepage() {
-  $header.className = 'container nav hidden';
-  $homepage.className = 'container hidden';
-}
-
-// function hideCard() {
-//   $header.className = 'container nav';
-//   $homepage.className = 'container';
-// }
-
-// function showInfo() {
-//   $info.className = 'row info-box';
-//   $stats.className = 'row stats-box hidden';
-// }
-
-// function showStats() {
-//   $info.className = 'row info-box hidden';
-//   $stats.className = 'row stats-box';
-// }
 
 function renderTypeBox(types) {
   var $typeDiv = document.createElement('div');
@@ -351,4 +327,32 @@ function renderStatsBar(stats, types) {
     $statsBar.appendChild($allDiv[k]);
   }
   return $statsBar;
+}
+
+function capitalize(name) {
+  return name[0].toUpperCase() + name.slice(1).toLowerCase();
+}
+
+function pokeID(num) {
+  return num.toString().padStart(3, '0');
+}
+
+function heightConversion(decimeter) {
+  var feet = decimeter * 0.328084;
+  var ft = Math.floor(feet);
+  var inches = Math.round((feet - ft) * 12);
+  return ft.toString() + "' " + inches.toString() + '"';
+}
+
+function weightConversion(hectogram) {
+  var pounds = hectogram * 0.220462;
+  var lbs = Math.round(pounds * 10) / 10;
+  return lbs.toString() + ' lbs';
+}
+
+function editDescription(string) {
+  var edit = string.replaceAll('\n', ' ');
+  edit = edit.replaceAll('\f', ' ');
+  edit = edit.replaceAll('POKéMON', 'Pokémon');
+  return edit;
 }
