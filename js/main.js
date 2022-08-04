@@ -19,6 +19,8 @@ function getPokemonEntry() {
 
 getPokemonEntry();
 
+getPokemonDetail(1);
+
 function getPokemonDetail(id) {
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + id);
@@ -44,17 +46,9 @@ function getPokemonDetail(id) {
       data.currentPokemon.stats.push(stat);
     }
     getPokemonDescription(id);
-    // var $cardContainer = document.querySelector('#card-container');
-    renderPokemonImg(data.currentPokemon);
-    renderPokemonDetails(data.currentPokemon);
-    // console.log(data.currentPokemon);
   });
   xhr2.send();
-  // console.log(data.currentPokemon);
-
 }
-
-getPokemonDetail(1);
 
 function getPokemonDescription(id) {
   var xhr3 = new XMLHttpRequest();
@@ -64,8 +58,8 @@ function getPokemonDescription(id) {
     var APIdata = xhr3.response;
     var description = APIdata.flavor_text_entries[0].flavor_text;
     data.currentPokemon.description = editDescription(description);
-    // console.log(data.currentPokemon.description);
-    // console.log(data.currentPokemon);
+    renderPokemonImg(data.currentPokemon);
+    renderPokemonDetails(data.currentPokemon);
   });
   xhr3.send();
 }
@@ -105,7 +99,6 @@ function renderPokemonImg(pokemon) {
   $cardImg.setAttribute('alt', pokemon.name);
   $cardImgWrapper.appendChild($cardImg);
   // console.log($row);
-
 }
 
 function renderPokemonDetails(pokemon) {
@@ -122,21 +115,7 @@ function renderPokemonDetails(pokemon) {
   $name.className = 'card-name';
   $name.textContent = capitalize(pokemon.name);
   $nameDiv.appendChild($name);
-  var $typeDiv = document.createElement('div');
-  $typeDiv.className = 'type-box';
-  $nameDiv.appendChild($typeDiv);
-  var $type1 = document.createElement('div');
-  $type1.className = 'type-1';
-  $type1.textContent = pokemon.types[0];
-  var $type2 = document.createElement('div');
-  $type2.className = 'type-2';
-  if (pokemon.types.length === 1) {
-    $typeDiv.appendChild($type1);
-  } else {
-    $typeDiv.appendChild($type1);
-    $type2.textContent = pokemon.types[1];
-    $typeDiv.appendChild($type2);
-  }
+  $nameDiv.appendChild(renderTypeBox(data.currentPokemon.types));
   var $infoDiv = document.createElement('div');
   $infoDiv.className = 'row info-box';
   $nameDiv.appendChild($infoDiv);
@@ -144,7 +123,11 @@ function renderPokemonDetails(pokemon) {
   $infoCol.className = 'col-full';
   $infoDiv.appendChild($infoCol);
   var $abilities = document.createElement('p');
-  $abilities.textContent = 'Abilities: ' + capitalize(pokemon.abilities[0]) + ', ' + capitalize(pokemon.abilities[1]);
+  if (pokemon.abilities.length === 1) {
+    $abilities.textContent = 'Abilities: ' + capitalize(pokemon.abilities[0]);
+  } else {
+    $abilities.textContent = 'Abilities: ' + capitalize(pokemon.abilities[0]) + ', ' + capitalize(pokemon.abilities[1]);
+  }
   var $height = document.createElement('p');
   $height.textContent = heightConversion(pokemon.height);
   var $weight = document.createElement('p');
@@ -155,6 +138,12 @@ function renderPokemonDetails(pokemon) {
   $infoCol.appendChild($height);
   $infoCol.appendChild($weight);
   $infoCol.appendChild($description);
+  var $statsDiv = document.createElement('div');
+  $statsDiv.className = 'row stats-box hidden';
+  $nameDiv.appendChild($statsDiv);
+  $statsDiv.appendChild(renderStatsName(data.currentPokemon.stats));
+  $statsDiv.appendChild(renderStatsNum(data.currentPokemon.stats));
+  $statsDiv.appendChild(renderStatsBar(data.currentPokemon.stats));
   // console.log($row);
 }
 
@@ -172,7 +161,6 @@ function handlePokemonClick(event) {
     var closestEntryDiv = event.target.closest('.entries');
     var id = Number.parseInt(closestEntryDiv.id);
     return id;
-    // console.log(id);
   }
 }
 
@@ -209,3 +197,95 @@ function showCard() {
   $homepage.className = 'container hidden';
   $card.className = 'card-wrapper';
 }
+
+// function hideCard() {
+//   $header.className = 'container nav';
+//   $homepage.className = 'container';
+//   $card.className = 'card-wrapper hidden';
+// }
+
+function renderTypeBox(types) {
+  var $typeDiv = document.createElement('div');
+  $typeDiv.className = 'type-box';
+  var $allTypes = [];
+  var $div = document.createElement('div');
+  $div.className = 'type-1';
+  if (types.length === 1) {
+    $div.textContent = capitalize(types[0]);
+    $div.style.backgroundColor = data.typeColors[types[0]];
+    $allTypes.push($div);
+  } else {
+    $div.textContent = capitalize(types[0]);
+    $div.style.backgroundColor = data.typeColors[types[0]];
+    $allTypes.push($div);
+    var $div2 = document.createElement('div');
+    $div2.className = 'type-2';
+    $div2.textContent = capitalize(types[1]);
+    $div2.style.backgroundColor = data.typeColors[types[1]];
+    $allTypes.push($div2);
+  }
+  for (var i = 0; i < $allTypes.length; i++) {
+    $typeDiv.appendChild($allTypes[i]);
+  }
+  return $typeDiv;
+}
+
+// var dummytype = ['fire'];
+// var dummy2types = ['water', 'rock'];
+
+function renderStatsName(stats) {
+  var $statsName = document.createElement('div');
+  $statsName.className = 'col-two-eighth col-desktop-eighth stats-text';
+  var $allP = [];
+  for (var i = 0; i < stats.length; i++) {
+    var $p = document.createElement('p');
+    if (stats[i].name === 'special-attack') {
+      $p.textContent = 'Sp. Atk';
+      $allP.push($p);
+    } else if (stats[i].name === 'special-defense') {
+      $p.textContent = 'Sp. Def';
+      $allP.push($p);
+    } else {
+      $p.textContent = capitalize(stats[i].name);
+      $allP.push($p);
+    }
+  }
+  for (var k = 0; k < $allP.length; k++) {
+    $statsName.appendChild($allP[k]);
+  }
+  return $statsName;
+}
+
+function renderStatsNum(stats) {
+  var $statsNum = document.createElement('div');
+  $statsNum.className = 'col-eighth stats-num';
+  var $allP = [];
+  for (var i = 0; i < stats.length; i++) {
+    var $p = document.createElement('p');
+    $p.setAttribute('id', stats[i].name);
+    $p.textContent = stats[i].base_stat;
+    $allP.push($p);
+  }
+  for (var k = 0; k < $allP.length; k++) {
+    $statsNum.appendChild($allP[k]);
+  }
+  return $statsNum;
+}
+
+function renderStatsBar(stats) {
+  var $statsBar = document.createElement('div');
+  $statsBar.className = 'col-five-eighth col-desktop-six-eighth';
+  var $allDiv = [];
+  for (var i = 0; i < stats.length; i++) {
+    var $div = document.createElement('div');
+    $div.setAttribute('id', stats[i].name + '-bar');
+    $div.className = 'bar';
+    $allDiv.push($div);
+  }
+  for (var k = 0; k < $allDiv.length; k++) {
+    $statsBar.appendChild($allDiv[k]);
+  }
+  return $statsBar;
+}
+
+// var statsdummy = [{ name: 'hp', base_stat: 45 }, { name: 'attack', base_stat: 49 }, { name: 'defense', base_stat: 49 }, { name: 'special-attack', base_stat: 65 }, { name: 'special-defense', base_stat: 65 }, { name: 'speed', base_stat: 45 }];
