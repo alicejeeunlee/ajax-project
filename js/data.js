@@ -20,6 +20,7 @@ var data = {
     water: '6fb3f2'
   },
   currentPokemon: {
+    entry_number: null,
     id: null,
     name: null,
     types: [],

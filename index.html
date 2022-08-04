@@ -15,7 +15,7 @@
 </head>
 <body>
   <header>
-    <div class="container nav">
+    <div id="header" class="container nav hidden">
       <div class="row">
         <div class="col-full">
           <h1>Pokédex</h1>
@@ -24,66 +24,66 @@
     </div>
   </header>
   <main>
-    <div id="homepage" class="container">
+    <div id="homepage" class="container hidden">
       <div class="allPokemon row wrap gap">
       </div>
     </div>
-    <div id="card" class="card-wrapper hidden">
-      <div class="container">
+    <div id="card" class="card-wrapper">
+      <div id="card-container" class="container">
         <div class="row card-nav">
           <div class="col-half flex align-center">
             <i class="fa-solid fa-chevron-down fa-2xl"></i>
           </div>
           <div class="col-half flex flex-end align-center">
             <img class="info-icon" src="images/info-icon.png" alt="info-icon">
-            <i class="fa-solid fa-align-left fa-2xl"></i></button>
+            <i class="fa-solid fa-align-left fa-2xl"></i>
           </div>
         </div>
-        <div class="col-full card-img-wrapper">
-          <img class="card-img" src="images/pokemon/1.png" alt="bulbasaur">
+        <div class="row">
+          <div class="col-full card-img-wrapper">
+            <img class="card-img" src="images/pokemon/1.png" alt="bulbasaur">
+          </div>
         </div>
-        <div class="text-boundary">
-          <div class="row justify-center card-boundary">
-            <div class="col-full col-desktop-two-third col-desktop-half card-text-padding">
-              <p class="card-id">001</p>
-              <p class="card-name">Bulbasaur</p>
-              <div class="type-box">
-                <div class="type-1">Grass</div>
-                <div class="type-2">Poison</div>
+        <div class="row justify-center text-boundary">
+          <div class="col-full col-desktop-two-third col-desktop-half card-text-padding">
+            <p class="card-id">001</p>
+            <p class="card-name">Bulbasaur</p>
+            <div class="type-box">
+              <div class="type-1">Grass</div>
+              <div class="type-2">Poison</div>
+            </div>
+            <div id="info" class="row info-box">
+              <div class="col-full">
+                <p>Abilities: Overgrow, Chlorophyll</p>
+                <p>Height: 2' 4&quot;</p>
+                <p>Weight: 15.2 lbs</p>
+                <p>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</p>
               </div>
-              <div id="info" class="row info-box">
-                <div class="col-full">
-                  <p>Abilities: Overgrow, Chlorophyll</p>
-                  <p>Height: 2' 4&quot;</p>
-                  <p>Weight: 15.2 lbs</p>
-                  <p>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</p>
-                </div>
+            </div>
+            <div id="stats" class="row stats-box hidden">
+              <div class="col-two-eighth col-desktop-eighth stats-text">
+                <p>HP</p>
+                <p>Attack</p>
+                <p>Defense</p>
+                <p>Sp. Atk</p>
+                <p>Sp. Def</p>
+                <p>Speed</p>
               </div>
-              <div id="stats" class="row stats-box hidden">
-                <div class="col-two-eighth col-desktop-eighth stats-text">
-                  <p>HP</p>
-                  <p>Attack</p>
-                  <p>Defense</p>
-                  <p>Sp. Atk</p>
-                  <p>Sp. Def</p>
-                  <p>Speed</p>
-                </div>
-                <div class="col-eighth stats-num">
-                  <p id="hp">45</p>
-                  <p id="attack">49</p>
-                  <p id="defense">65</p>
-                  <p id="sp-atk">65</p>
-                  <p id="sp-def">65</p>
-                  <p id="speed">45</p>
-                </div>
-                <div class="col-five-eighth col-desktop-six-eighth">
-                  <div id="hp-bar" class="bar"></div>
-                  <div id="attack-bar" class="bar"></div>
-                  <div id="defense-bar" class="bar"></div>
-                  <div id="sp-atk-bar" class="bar"></div>
-                  <div id="sp-def-bar" class="bar"></div>
-                  <div id="speed-bar" class="bar"></div>
-                </div>
+              <div class="col-eighth stats-num">
+                <p id="hp">45</p>
+                <p id="attack">49</p>
+                <p id="defense">65</p>
+                <p id="sp-atk">65</p>
+                <p id="sp-def">65</p>
+                <p id="speed">45</p>
+              </div>
+              <div class="col-five-eighth col-desktop-six-eighth">
+                <div id="hp-bar" class="bar"></div>
+                <div id="attack-bar" class="bar"></div>
+                <div id="defense-bar" class="bar"></div>
+                <div id="sp-atk-bar" class="bar"></div>
+                <div id="sp-def-bar" class="bar"></div>
+                <div id="speed-bar" class="bar"></div>
               </div>
             </div>
           </div>
