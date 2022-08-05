@@ -32,3 +32,15 @@ var data = {
   },
   favorites: []
 };
+
+var previousJSONData = localStorage.getItem('AJAX-favorite-pokemon');
+if (previousJSONData !== null) {
+  data = JSON.parse(previousJSONData);
+}
+
+function addFavoritePokemonsToLocalStorage(event) {
+  var JSONdata = JSON.stringify(data.favorites);
+  localStorage.setItem('AJAX-favorite-pokemon', JSONdata);
+}
+
+window.addEventListener('beforeunload', addFavoritePokemonsToLocalStorage);
