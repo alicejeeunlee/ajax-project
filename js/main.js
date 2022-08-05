@@ -321,11 +321,11 @@ function renderStatsBar(stats, types) {
   for (var i = 0; i < stats.length; i++) {
     var $div = document.createElement('div');
     $div.setAttribute('id', stats[i].name + '-bar');
-    $div.style.width = statsCap255(stats[i].base_stat);
+    $div.className = 'bar';
     if (types.length === 1) {
-      $div.className = 'bar ' + types[0];
+      $div.style.background = statsBarLinearGradient(data.typeColors[types[0]], statsCap255(stats[i].base_stat));
     } else {
-      $div.className = 'bar ' + types[1];
+      $div.style.background = statsBarLinearGradient(data.typeColors[types[1]], statsCap255(stats[i].base_stat));
     }
     $allDiv.push($div);
   }
@@ -367,4 +367,8 @@ function statsCap255(num) {
   var percent = (num / 255) * 100;
   percent = percent.toString() + '%';
   return percent;
+}
+
+function statsBarLinearGradient(type, percent) {
+  return 'linear-gradient(90deg, ' + type + ' ' + percent + ', rgba(230, 230, 230, 1) ' + percent + ')';
 }
