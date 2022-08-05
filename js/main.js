@@ -174,6 +174,9 @@ function renderPokemonCard(pokemon) {
       showStats();
     }
   });
+  var $heartIcon = document.createElement('i');
+  $heartIcon.className = 'heart-icon fa-solid fa-heart fa-2xl';
+  $viewDiv.appendChild($heartIcon);
   var $cardImg = renderPokemonImg(pokemon);
   $cardContainer.appendChild($cardImg);
   var $cardDetails = renderPokemonDetails(pokemon);
