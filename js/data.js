@@ -29,5 +29,6 @@ var data = {
     weight: null,
     stats: [],
     description: null
-  }
+  },
+  favorites: []
 };
