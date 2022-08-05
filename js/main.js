@@ -372,3 +372,19 @@ function statsCap255(num) {
 function statsBarLinearGradient(type, percent) {
   return 'linear-gradient(90deg, ' + type + ' ' + percent + ', rgba(230, 230, 230, 1) ' + percent + ')';
 }
+
+var $searchInput = document.querySelector('#search');
+$searchInput.addEventListener('input', function search() {
+  var $searchIcon = document.querySelector('.fa-magnifying-glass');
+  $searchIcon.classList.add('hidden');
+  var $allEntries = document.querySelectorAll('.entries');
+  var $searchInput = document.querySelector('#search').value;
+  for (var i = 0; i < $allEntries.length; i++) {
+    if ($allEntries[i].innerText.toLowerCase()
+      .includes($searchInput.toLowerCase())) {
+      $allEntries[i].classList.remove('hidden');
+    } else {
+      $allEntries[i].classList.add('hidden');
+    }
+  }
+});
