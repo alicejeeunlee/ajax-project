@@ -15,15 +15,43 @@
   flex-basis: 50%;
 }
 
+.col-eighth {
+  flex-basis: calc(100%/8);
+}
+
+.col-two-eighth {
+  flex-basis: calc(200%/8);
+}
+
+.col-five-eighth {
+  flex-basis: calc(500%/8);
+}
+
 @media only screen and (min-width: 768px) {
   .col-third {
     flex-basis: calc(100%/3);
+  }
+
+  .col-desktop-two-third {
+    flex-basis: calc(200%/3);
+  }
+
+  .col-desktop-eighth {
+    flex-basis: calc(100%/8);
+  }
+
+  .col-desktop-six-eighth {
+    flex-basis: calc(600%/8);
   }
 }
 
 @media only screen and (min-width: 1152px) {
   .col-fifth {
     flex-basis: 20%;
+  }
+
+  .col-desktop-half {
+    flex-basis: 50%;
   }
 }
 

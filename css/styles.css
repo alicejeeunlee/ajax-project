@@ -16,7 +16,7 @@ h1 {
   margin-left: 0.5rem;
 }
 
-.entry-wrap {
+.entry-wrapper {
   background-color: #e6e6e6;
   border-radius: 30px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -59,6 +59,206 @@ h1 {
   justify-content: center;
 }
 
+.hidden {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.card-nav {
+  padding: 1rem 0.5rem;
+}
+
+.card-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.text-boundary {
+  background-color: white;
+  position: absolute;
+  width: 100vw;
+  height: 70vh;
+  left: 0;
+  bottom: 0;
+  border-radius: 100px 100px 0 0;
+  z-index: 1;
+}
+
+.info-icon {
+  width: 35px;
+  margin-right: 1.2rem;
+}
+
+i {
+  color: white;
+}
+
+.card-img {
+  width: 280px;
+  position: relative;
+  z-index: 2;
+}
+
+.card-img-wrapper {
+  text-align: center;
+}
+
+.card-text-padding {
+  padding: 6rem 1.5rem;
+}
+
+.card-id {
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+}
+
+.card-name {
+  font-size: 46px;
+  margin: 0;
+  text-align: center;
+}
+
+.type-box {
+  display: flex;
+  justify-content: center;
+}
+
+.type-1 {
+  font-size: 26px;
+  text-align: center;
+  width: 100px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+}
+
+.type-2 {
+  font-size: 26px;
+  text-align: center;
+  width: 100px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+
+.info-box {
+  margin-top: 2rem;
+  font-size: 26px;
+}
+
+.stats-box {
+  margin-top: 1rem;
+  font-size: 26px;
+}
+
+.stats-text {
+  line-height: 1.6rem;
+}
+
+.stats-num {
+  line-height: 1.6rem;
+  text-align: right;
+}
+
+.bar {
+  background-color: #ddb9ed;
+  height: 15px;
+  border-radius: 10px;
+  margin: 2.2rem 0 2.23rem 1.5rem;
+}
+
+.card-boundary {
+  height: 590px;
+}
+
+.bug {
+  background-color: #bddb81;
+}
+
+.dragon {
+  background-color: #5599d4;
+}
+
+.electric {
+  background-color: #f2e096;
+}
+
+.fairy {
+  background-color: #fac0f6;
+}
+
+.fighting {
+  background-color: #e0708f;
+}
+
+.fire {
+  background-color: #eba878;
+}
+
+.flying {
+  background-color: #c2d5fc;
+}
+
+.ghost {
+  background-color: #6689f2;
+}
+
+.grass {
+  background-color: #97c993;
+}
+
+.ground {
+  background-color: #bd7957;
+}
+
+.ice {
+  background-color: #bbe6e5;
+}
+
+.normal {
+  background-color: #cbd1d6;
+}
+
+.poison {
+  background-color: #ddb9ed;
+}
+
+.psychic {
+  background-color: #f7bcbe;
+}
+
+.rock {
+  background-color: #c6b786;
+}
+
+.steel {
+  background-color: #7aadbf;
+}
+
+.water {
+  background-color: #6fb3f2;
+}
+
+@media only screen and (min-width: 400px) {
+  .card-img {
+    width: 330px;
+  }
+}
+
 @media only screen and (min-width: 1152px) {
   h1 {
     font-size: 90px;
@@ -71,5 +271,9 @@ h1 {
 
   .gap {
     row-gap: 50px;
+  }
+
+  .card-nav {
+    padding: 1rem 12rem;
   }
 }
