@@ -321,7 +321,7 @@ function renderStatsBar(stats, types) {
   for (var i = 0; i < stats.length; i++) {
     var $div = document.createElement('div');
     $div.setAttribute('id', stats[i].name + '-bar');
-    $div.style.width = stats[i].base_stat + '%';
+    $div.style.width = statsCap255(stats[i].base_stat);
     if (types.length === 1) {
       $div.className = 'bar ' + types[0];
     } else {
@@ -361,4 +361,10 @@ function editDescription(string) {
   edit = edit.replaceAll('\f', ' ');
   edit = edit.replaceAll('POKéMON', 'Pokémon');
   return edit;
+}
+
+function statsCap255(num) {
+  var percent = (num / 255) * 100;
+  percent = percent.toString() + '%';
+  return percent;
 }
