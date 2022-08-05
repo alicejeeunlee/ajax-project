@@ -273,7 +273,7 @@ i {
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1152px) {
   h1 {
     font-size: 90px;
     margin-left: 1.2rem;
