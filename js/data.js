@@ -30,6 +30,7 @@ var data = {
     stats: [],
     description: null
   },
+  view: 'all',
   favorites: []
 };
 
@@ -38,9 +39,9 @@ if (previousJSONData !== null) {
   data = JSON.parse(previousJSONData);
 }
 
-function addFavoritePokemonsToLocalStorage(event) {
-  var JSONdata = JSON.stringify(data.favorites);
+function addToLocalStorage(event) {
+  var JSONdata = JSON.stringify(data);
   localStorage.setItem('AJAX-favorite-pokemon', JSONdata);
 }
 
-window.addEventListener('beforeunload', addFavoritePokemonsToLocalStorage);
+window.addEventListener('beforeunload', addToLocalStorage);

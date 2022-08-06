@@ -45,6 +45,7 @@ function renderPokemonEntries(pokemon) {
 var $homepage = document.querySelector('#homepage');
 $homepage.addEventListener('click', function handlePokemonClick(event) {
   if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
+    data.currentPokemon = {};
     var closestEntryDiv = event.target.closest('.entries');
     var id = Number.parseInt(closestEntryDiv.id);
     hideHomepage();
@@ -64,23 +65,29 @@ function getPokemonDetail(id) {
   xhr2.responseType = 'json';
   xhr2.addEventListener('load', function () {
     var APIdata = xhr2.response;
-    data.currentPokemon.entry_number = APIdata.id;
-    data.currentPokemon.id = pokeID(id);
-    data.currentPokemon.name = APIdata.name;
-    data.currentPokemon.height = APIdata.height;
-    data.currentPokemon.weight = APIdata.weight;
+    var pokemon = {
+      entry_number: APIdata.id,
+      id: pokeID(id),
+      name: APIdata.name,
+      height: APIdata.height,
+      weight: APIdata.weight,
+      abilities: [],
+      types: [],
+      stats: []
+    };
     for (var i = 0; i < APIdata.abilities.length; i++) {
-      data.currentPokemon.abilities.push(APIdata.abilities[i].ability.name);
+      pokemon.abilities.push(APIdata.abilities[i].ability.name);
     }
     for (var k = 0; k < APIdata.types.length; k++) {
-      data.currentPokemon.types.push(APIdata.types[k].type.name);
+      pokemon.types.push(APIdata.types[k].type.name);
     }
     for (var j = 0; j < APIdata.stats.length; j++) {
       var stat = {};
       stat.name = APIdata.stats[j].stat.name;
       stat.base_stat = APIdata.stats[j].base_stat;
-      data.currentPokemon.stats.push(stat);
+      pokemon.stats.push(stat);
     }
+    data.currentPokemon = pokemon;
     getPokemonDescription(id);
   });
   xhr2.send();
@@ -140,15 +147,6 @@ function renderPokemonCard(pokemon) {
   $backDiv.appendChild($backIcon);
   $backIcon.addEventListener('click', function handleBackClick(event) {
     if (event.target.tagName === 'I') {
-      data.currentPokemon.entry_number = null;
-      data.currentPokemon.id = null;
-      data.currentPokemon.name = null;
-      data.currentPokemon.types = [];
-      data.currentPokemon.abilities = [];
-      data.currentPokemon.height = null;
-      data.currentPokemon.weight = null;
-      data.currentPokemon.stats = [];
-      data.currentPokemon.description = null;
       $cardWrapper.remove();
       showHomepage();
     }
@@ -177,6 +175,15 @@ function renderPokemonCard(pokemon) {
   var $heartIcon = document.createElement('i');
   $heartIcon.className = 'heart-icon fa-solid fa-heart fa-2xl';
   $viewDiv.appendChild($heartIcon);
+  $heartIcon.addEventListener('click', function addToFavorite(event) {
+    var $heartIcon = document.querySelector('.heart-icon');
+    if (event.target.tagName === 'I') {
+      $heartIcon.classList.add('favorite');
+      data.currentPokemon.favorite = true;
+      var liked = data.currentPokemon;
+      data.favorites.unshift(liked);
+    }
+  });
   var $cardImg = renderPokemonImg(pokemon);
   $cardContainer.appendChild($cardImg);
   var $cardDetails = renderPokemonDetails(pokemon);
@@ -391,3 +398,31 @@ $searchInput.addEventListener('input', function search() {
     }
   }
 });
+
+var $navHeartIcon = document.querySelector('.nav-heart-icon');
+$navHeartIcon.addEventListener('click', function showFavorite(event) {
+  var heartIconClassList = $navHeartIcon.classList;
+  for (var i = 0; i < heartIconClassList.length; i++) {
+    if (heartIconClassList[i] !== 'favorite') {
+      $navHeartIcon.classList.add('favorite');
+      data.view = 'favorites';
+      viewSwap(data.view);
+    } else {
+      $navHeartIcon.classList.remove('favorite');
+      data.view = 'all';
+      viewSwap(data.view);
+    }
+  }
+
+});
+
+var $allView = document.querySelectorAll('.view');
+function viewSwap(view) {
+  for (var j = 0; j < $allView.length; j++) {
+    if ($allView[j].getAttribute('data-view') === view) {
+      $allView[j].className = 'container view';
+    } else {
+      $allView[j].className = 'container view hidden';
+    }
+  }
+}
