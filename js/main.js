@@ -413,7 +413,6 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
       viewSwap(data.view);
     }
   }
-
 });
 
 var $allView = document.querySelectorAll('.view');
