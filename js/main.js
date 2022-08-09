@@ -401,19 +401,17 @@ $searchInput.addEventListener('input', function search() {
 
 var $navHeartIcon = document.querySelector('.nav-heart-icon');
 $navHeartIcon.addEventListener('click', function showFavorite(event) {
-  var heartIconClassList = $navHeartIcon.classList;
-  for (var i = 0; i < heartIconClassList.length; i++) {
-    if (heartIconClassList[i] !== 'favorite') {
-      $navHeartIcon.classList.add('favorite');
-      data.view = 'favorites';
-      viewSwap(data.view);
-    } else {
-      $navHeartIcon.classList.remove('favorite');
-      data.view = 'all';
-      viewSwap(data.view);
-    }
+  if (data.view === 'all') {
+    $navHeartIcon.classList.add('favorite');
+    data.view = 'favorites';
+    viewSwap(data.view);
+  } else {
+    $navHeartIcon.classList.remove('favorite');
+    data.view = 'all';
+    viewSwap(data.view);
   }
-});
+}
+);
 
 var $allView = document.querySelectorAll('.view');
 function viewSwap(view) {
