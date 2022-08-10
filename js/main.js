@@ -405,6 +405,10 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
     $navHeartIcon.classList.add('favorite');
     data.view = 'favorites';
     viewSwap(data.view);
+    if (data.favorites.length > 0) {
+      var $noPokemon = document.querySelector('.no-pokemon');
+      $noPokemon.classList.add('hidden');
+    }
   } else {
     $navHeartIcon.classList.remove('favorite');
     data.view = 'all';
@@ -412,6 +416,13 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
   }
 }
 );
+
+if (data.view === 'favorites') {
+  var $favoritePokemon = document.querySelector('.favoritePokemon');
+  for (var i = 0; i < data.favorites.length; i++) {
+    $favoritePokemon.appendChild(renderPokemonEntries(data.favorites[i]));
+  }
+}
 
 var $allView = document.querySelectorAll('.view');
 function viewSwap(view) {
