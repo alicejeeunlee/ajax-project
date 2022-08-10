@@ -182,13 +182,25 @@ function renderPokemonCard(pokemon) {
   });
   var $heartIcon = document.createElement('i');
   $heartIcon.className = 'heart-icon fa-solid fa-heart fa-2xl';
+  for (var i = 0; i < data.favorites.length; i++) {
+    if (data.currentPokemon.entry_number === data.favorites[i].entry_number) {
+      $heartIcon.className = 'heart-icon fa-solid fa-heart fa-2xl favorite';
+      break;
+    }
+  }
   $viewDiv.appendChild($heartIcon);
   $heartIcon.addEventListener('click', function addToFavorite(event) {
     var $heartIcon = document.querySelector('.heart-icon');
     if (event.target.tagName === 'I') {
       $heartIcon.classList.add('favorite');
-      data.currentPokemon.favorite = true;
       var liked = data.currentPokemon;
+      // for (var i = 0; i < data.favorites.length; i++) {
+      //   if (liked.entry_number === data.favorites[i].entry_number) {
+      //     return;
+      //   } else {
+      //     data.favorites.unshift(liked);
+      //   }
+      // }
       data.favorites.unshift(liked);
     }
   });
