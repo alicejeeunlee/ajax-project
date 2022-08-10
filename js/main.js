@@ -53,10 +53,15 @@ $homepage.addEventListener('click', function handlePokemonClick(event) {
   }
 });
 
+var $header = document.querySelector('#header');
 function hideHomepage() {
-  var $header = document.querySelector('#header');
   $header.className = 'container nav hidden';
   $homepage.className = 'container hidden';
+}
+
+function showHomepage() {
+  $header.className = 'container nav';
+  $homepage.className = 'container';
 }
 
 function getPokemonDetail(id) {
@@ -146,9 +151,12 @@ function renderPokemonCard(pokemon) {
   $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
   $backDiv.appendChild($backIcon);
   $backIcon.addEventListener('click', function handleBackClick(event) {
-    if (event.target.tagName === 'I') {
+    if (event.target.tagName === 'I' && data.view === 'all') {
       $cardWrapper.remove();
       showHomepage();
+    } else {
+      $cardWrapper.remove();
+      showFavorites();
     }
   });
   var $viewDiv = document.createElement('div');
@@ -189,12 +197,6 @@ function renderPokemonCard(pokemon) {
   var $cardDetails = renderPokemonDetails(pokemon);
   $cardContainer.appendChild($cardDetails);
   return $cardWrapper;
-}
-
-var $header = document.querySelector('#header');
-function showHomepage() {
-  $header.className = 'container nav';
-  $homepage.className = 'container';
 }
 
 function renderPokemonImg(pokemon) {
@@ -399,9 +401,19 @@ $searchInput.addEventListener('input', function search() {
   }
 });
 
+var $allView = document.querySelectorAll('.view');
+function viewSwap(view) {
+  for (var j = 0; j < $allView.length; j++) {
+    if ($allView[j].getAttribute('data-view') === view) {
+      $allView[j].className = 'container view';
+    } else {
+      $allView[j].className = 'container view hidden';
+    }
+  }
+}
+
 var $navHeartIcon = document.querySelector('.nav-heart-icon');
 $navHeartIcon.addEventListener('click', function showFavorite(event) {
-  // debugger;
   if (data.view === 'all') {
     $navHeartIcon.classList.add('favorite');
     data.view = 'favorites';
@@ -414,6 +426,16 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
       for (var i = 0; i < data.favorites.length; i++) {
         $favoritePokemon.appendChild(renderPokemonEntries(data.favorites[i]));
       }
+      var $favorites = document.querySelector('#favorites');
+      $favorites.addEventListener('click', function handleFavoritePokemonClick(event) {
+        if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
+          data.currentPokemon = {};
+          var closestEntryDiv = event.target.closest('.entries');
+          var id = Number.parseInt(closestEntryDiv.id);
+          hideFavorites();
+          getPokemonDetail(id);
+        }
+      });
     }
   } else {
     $navHeartIcon.classList.remove('favorite');
@@ -428,13 +450,13 @@ if (data.favorites.length > 0) {
   $noPokemon.classList.add('hidden');
 }
 
-var $allView = document.querySelectorAll('.view');
-function viewSwap(view) {
-  for (var j = 0; j < $allView.length; j++) {
-    if ($allView[j].getAttribute('data-view') === view) {
-      $allView[j].className = 'container view';
-    } else {
-      $allView[j].className = 'container view hidden';
-    }
-  }
+var $favoritePokemon = document.querySelector('.favoritePokemon');
+function hideFavorites() {
+  $header.classList.add('hidden');
+  $favoritePokemon.classList.add('hidden');
+}
+
+function showFavorites() {
+  $header.classList.remove('hidden');
+  $favoritePokemon.classList.remove('hidden');
 }
