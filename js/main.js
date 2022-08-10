@@ -401,13 +401,19 @@ $searchInput.addEventListener('input', function search() {
 
 var $navHeartIcon = document.querySelector('.nav-heart-icon');
 $navHeartIcon.addEventListener('click', function showFavorite(event) {
+  // debugger;
   if (data.view === 'all') {
     $navHeartIcon.classList.add('favorite');
     data.view = 'favorites';
     viewSwap(data.view);
     if (data.favorites.length > 0) {
-      var $noPokemon = document.querySelector('.no-pokemon');
-      $noPokemon.classList.add('hidden');
+      var $favoritePokemon = document.querySelector('.favoritePokemon');
+      while ($favoritePokemon.firstChild) {
+        $favoritePokemon.removeChild($favoritePokemon.firstChild);
+      }
+      for (var i = 0; i < data.favorites.length; i++) {
+        $favoritePokemon.appendChild(renderPokemonEntries(data.favorites[i]));
+      }
     }
   } else {
     $navHeartIcon.classList.remove('favorite');
@@ -417,11 +423,9 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
 }
 );
 
-if (data.view === 'favorites') {
-  var $favoritePokemon = document.querySelector('.favoritePokemon');
-  for (var i = 0; i < data.favorites.length; i++) {
-    $favoritePokemon.appendChild(renderPokemonEntries(data.favorites[i]));
-  }
+if (data.favorites.length > 0) {
+  var $noPokemon = document.querySelector('.no-pokemon');
+  $noPokemon.classList.add('hidden');
 }
 
 var $allView = document.querySelectorAll('.view');
