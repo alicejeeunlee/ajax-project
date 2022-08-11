@@ -127,6 +127,10 @@ function renderPokemonCard(pokemon) {
       $cardWrapper.remove();
       showHomepage();
     } else if (event.target.tagName === 'I' && data.view === 'favorites') {
+      if (data.favorites.length === 0) {
+        var lastFavorite = $favorites.querySelector('[data-pokenum]');
+        lastFavorite.remove();
+      }
       $cardWrapper.remove();
       renderFavoriteEntries();
       showFavorites();
