@@ -1,5 +1,5 @@
 var $header = document.querySelector('#header');
-var $pokedex = document.querySelector('h1');
+var $pokedex = document.querySelector('.pokedex');
 var $navHeartIcon = document.querySelector('.nav-heart-icon');
 var $searchInput = document.querySelector('#search');
 var $allView = document.querySelectorAll('.view');
