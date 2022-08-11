@@ -172,16 +172,18 @@ function renderPokemonCard(pokemon) {
     var liked = data.currentPokemon;
     if (event.target.tagName === 'I' && event.target.classList.contains('favorite')) {
       $heartIcon.classList.remove('favorite');
-      var favoriteEntryNums = data.favorites.map(pokemon => pokemon.entry_number);
-      var index = favoriteEntryNums.indexOf(liked.entry_number);
-      data.favorites.splice(index, 1);
+      for (var i = 0; i < data.favorites.length; i++) {
+        if (data.favorites[i].entry_number === data.currentPokemon.entry_number) {
+          data.favorites.splice(i, 1);
+        }
+      }
     } else {
       $heartIcon.classList.add('favorite');
       if (data.favorites.length === 0) {
         data.favorites.unshift(liked);
       } else {
-        for (var i = 0; i < data.favorites.length; i++) {
-          if (liked.entry_number === data.favorites[i].entry_number) {
+        for (var k = 0; k < data.favorites.length; k++) {
+          if (liked.entry_number === data.favorites[k].entry_number) {
             return;
           }
         }
