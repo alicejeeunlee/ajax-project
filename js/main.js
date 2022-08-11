@@ -1,4 +1,5 @@
 var $header = document.querySelector('#header');
+var $pokedex = document.querySelector('h1');
 var $navHeartIcon = document.querySelector('.nav-heart-icon');
 var $searchInput = document.querySelector('#search');
 var $allView = document.querySelectorAll('.view');
@@ -447,6 +448,12 @@ function hideNoFavePokemonMsg() {
 function showNoFavePokemonMsg() {
   $noPokemon.classList.remove('hidden');
 }
+
+$pokedex.addEventListener('click', function handlePokedexClick(event) {
+  $navHeartIcon.classList.remove('favorite');
+  data.view = 'all';
+  viewSwap(data.view);
+});
 
 $homepage.addEventListener('click', function handlePokemonClick(event) {
   if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
