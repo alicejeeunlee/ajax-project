@@ -154,7 +154,7 @@ function renderPokemonCard(pokemon) {
     if (event.target.tagName === 'I' && data.view === 'all') {
       $cardWrapper.remove();
       showHomepage();
-    } else {
+    } else if (event.target.tagName === 'I' && data.view === 'favorites') {
       $cardWrapper.remove();
       showFavorites();
     }
@@ -194,14 +194,16 @@ function renderPokemonCard(pokemon) {
     if (event.target.tagName === 'I') {
       $heartIcon.classList.add('favorite');
       var liked = data.currentPokemon;
-      // for (var i = 0; i < data.favorites.length; i++) {
-      //   if (liked.entry_number === data.favorites[i].entry_number) {
-      //     return;
-      //   } else {
-      //     data.favorites.unshift(liked);
-      //   }
-      // }
-      data.favorites.unshift(liked);
+      if (data.favorites.length === 0) {
+        data.favorites.unshift(liked);
+      } else {
+        for (var i = 0; i < data.favorites.length; i++) {
+          if (liked.entry_number === data.favorites[i].entry_number) {
+            return;
+          }
+        }
+        data.favorites.unshift(liked);
+      }
     }
   });
   var $cardImg = renderPokemonImg(pokemon);
@@ -438,16 +440,6 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
       for (var i = 0; i < data.favorites.length; i++) {
         $favoritePokemon.appendChild(renderPokemonEntries(data.favorites[i]));
       }
-      var $favorites = document.querySelector('#favorites');
-      $favorites.addEventListener('click', function handleFavoritePokemonClick(event) {
-        if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
-          data.currentPokemon = {};
-          var closestEntryDiv = event.target.closest('.entries');
-          var id = Number.parseInt(closestEntryDiv.id);
-          hideFavorites();
-          getPokemonDetail(id);
-        }
-      });
     }
   } else {
     $navHeartIcon.classList.remove('favorite');
@@ -456,6 +448,17 @@ $navHeartIcon.addEventListener('click', function showFavorite(event) {
   }
 }
 );
+
+var $favorites = document.querySelector('#favorites');
+$favorites.addEventListener('click', function handleFavoritePokemonClick(event) {
+  if (event.target.tagName === 'IMG' || event.target.tagName === 'P') {
+    data.currentPokemon = {};
+    var closestEntryDiv = event.target.closest('.entries');
+    var id = Number.parseInt(closestEntryDiv.id);
+    hideFavorites();
+    getPokemonDetail(id);
+  }
+});
 
 if (data.favorites.length > 0) {
   var $noPokemon = document.querySelector('.no-pokemon');
