@@ -151,6 +151,7 @@ function renderPokemonCard(pokemon) {
   $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
   $backDiv.appendChild($backIcon);
   $backIcon.addEventListener('click', function handleBackClick(event) {
+    data.currentPokemon = {};
     if (event.target.tagName === 'I' && data.view === 'all') {
       $cardWrapper.remove();
       showHomepage();
@@ -191,9 +192,11 @@ function renderPokemonCard(pokemon) {
   $viewDiv.appendChild($heartIcon);
   $heartIcon.addEventListener('click', function addToFavorite(event) {
     var $heartIcon = document.querySelector('.heart-icon');
-    if (event.target.tagName === 'I') {
+    var liked = data.currentPokemon;
+    if (event.target.tagName === 'I' && event.target.classList.contains('favorite')) {
+      $heartIcon.classList.remove('favorite');
+    } else {
       $heartIcon.classList.add('favorite');
-      var liked = data.currentPokemon;
       if (data.favorites.length === 0) {
         data.favorites.unshift(liked);
       } else {
