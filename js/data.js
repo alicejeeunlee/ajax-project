@@ -29,5 +29,19 @@ var data = {
     weight: null,
     stats: [],
     description: null
-  }
+  },
+  view: 'all',
+  favorites: []
 };
+
+var previousJSONData = localStorage.getItem('AJAX-favorite-pokemon');
+if (previousJSONData !== null) {
+  data = JSON.parse(previousJSONData);
+}
+
+function addToLocalStorage(event) {
+  var JSONdata = JSON.stringify(data);
+  localStorage.setItem('AJAX-favorite-pokemon', JSONdata);
+}
+
+window.addEventListener('beforeunload', addToLocalStorage);

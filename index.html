@@ -17,8 +17,9 @@
   <header>
     <div id="header" class="container nav">
       <div class="row wrap">
-        <div class="col-full">
+        <div class="col-full space-between align-center">
           <h1>Pokédex</h1>
+          <i class="nav-heart-icon fa-solid fa-heart"></i>
         </div>
         <div class="col-full justify-center">
           <input id="search" class="search-box" type="search" placeholder="Search by Name or ID...">
@@ -28,8 +29,15 @@
     </div>
   </header>
   <main>
-    <div id="homepage" class="container">
+    <div data-view="all" id="homepage" class="container view">
       <div class="allPokemon row wrap gap">
+      </div>
+    </div>
+    <div data-view="favorites" id="favorites" class="container view hidden">
+      <div class="favoritePokemon row wrap gap">
+        <div class="col-full no-pokemon">
+          <p>No Pokémon in Favorites List!</p>
+        </div>
       </div>
     </div>
   </main>
