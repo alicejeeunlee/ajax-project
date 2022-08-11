@@ -195,6 +195,9 @@ function renderPokemonCard(pokemon) {
     var liked = data.currentPokemon;
     if (event.target.tagName === 'I' && event.target.classList.contains('favorite')) {
       $heartIcon.classList.remove('favorite');
+      var favoriteEntryNums = data.favorites.map(pokemon => pokemon.entry_number);
+      var index = favoriteEntryNums.indexOf(liked.entry_number);
+      data.favorites.splice(index, 1);
     } else {
       $heartIcon.classList.add('favorite');
       if (data.favorites.length === 0) {
