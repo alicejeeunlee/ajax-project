@@ -45,18 +45,12 @@
   }
 }
 
-@media only screen and (min-width: 1152px) {
+@media only screen and (min-width: 1280px) {
   .col-fifth {
     flex-basis: 20%;
   }
 
   .col-desktop-half {
     flex-basis: 50%;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  .col-seventh {
-    flex-basis: calc(100%/7);
   }
 }

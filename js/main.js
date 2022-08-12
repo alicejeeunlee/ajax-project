@@ -31,7 +31,7 @@ getPokemonEntry();
 function renderPokemonEntries(pokemon) {
   var $outerDiv = document.createElement('button');
   $outerDiv.setAttribute('data-pokeNum', pokemon.entry_number);
-  $outerDiv.setAttribute('class', 'entries col-half col-third col-fifth col-seventh justify-center');
+  $outerDiv.setAttribute('class', 'entries col-half col-third col-fifth justify-center');
   var $entryWrapDiv = document.createElement('div');
   $entryWrapDiv.setAttribute('class', 'entry-wrapper');
   $outerDiv.appendChild($entryWrapDiv);
