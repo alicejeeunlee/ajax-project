@@ -140,12 +140,18 @@ i {
 }
 
 .info-icon {
-  width: 35px;
+  width: 2.2rem;
   margin-right: 1rem;
 }
 
 .heart-icon {
   margin-left: 1rem;
+}
+
+.back-icon,
+.stats-icon,
+.heart-icon {
+  font-size: 1.6rem;
 }
 
 .favorite {
@@ -340,6 +346,16 @@ i.delete-icon {
 
   .card-nav {
     padding: 2rem 3.5rem;
+  }
+
+  .back-icon,
+  .stats-icon,
+  .heart-icon {
+    font-size: 2.5rem;
+  }
+
+  .info-icon {
+    width: 2.7rem;
   }
 }
 

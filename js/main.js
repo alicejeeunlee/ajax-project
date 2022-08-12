@@ -121,7 +121,7 @@ function renderPokemonCard(pokemon) {
   $backDiv.className = 'col-half flex align-center';
   $cardNav.appendChild($backDiv);
   var $backIcon = document.createElement('i');
-  $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
+  $backIcon.className = 'back-icon fa-solid fa-chevron-down';
   var $backButton = document.createElement('button');
   $backButton.appendChild($backIcon);
   $backDiv.appendChild($backButton);
@@ -155,7 +155,7 @@ function renderPokemonCard(pokemon) {
     }
   });
   var $statsIcon = document.createElement('i');
-  $statsIcon.className = 'fa-solid fa-align-left fa-2xl';
+  $statsIcon.className = 'stats-icon fa-solid fa-align-left';
   var $statsButton = document.createElement('button');
   $statsButton.appendChild($statsIcon);
   $viewDiv.appendChild($statsButton);
@@ -165,7 +165,7 @@ function renderPokemonCard(pokemon) {
     }
   });
   var $heartIcon = document.createElement('i');
-  $heartIcon.className = 'heart-icon fa-solid fa-heart fa-2xl';
+  $heartIcon.className = 'heart-icon fa-solid fa-heart';
   var $heartButton = document.createElement('button');
   $heartButton.appendChild($heartIcon);
   for (var i = 0; i < data.favorites.length; i++) {
