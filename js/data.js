@@ -45,3 +45,5 @@ function addToLocalStorage(event) {
 }
 
 window.addEventListener('beforeunload', addToLocalStorage);
+
+window.addEventListener('pagehide', addToLocalStorage);
