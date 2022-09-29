@@ -5,7 +5,7 @@ var $searchInput = document.querySelector('#search');
 var $allView = document.querySelectorAll('.view');
 var $homepage = document.querySelector('#homepage');
 var $favorites = document.querySelector('#favorites');
-var $favoritePokemon = document.querySelector('.favoritePokemon');
+var $favoritePokemon = document.querySelector('.favorite-pokemon');
 var $noPokemon = document.querySelector('.no-pokemon');
 
 function getPokemonEntry() {
@@ -15,7 +15,7 @@ function getPokemonEntry() {
   xhr.addEventListener('load', function () {
     var APIdata = xhr.response;
     var allPokemon = APIdata.pokemon_entries;
-    var $row = document.querySelector('.allPokemon');
+    var $row = document.querySelector('.all-pokemon');
     for (var i = 0; i < allPokemon.length; i++) {
       var pokemon = {};
       pokemon.entry_number = allPokemon[i].entry_number;
