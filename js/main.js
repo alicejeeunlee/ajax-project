@@ -115,11 +115,17 @@ function renderPokemonCard(pokemon) {
   $cardContainer.className = 'container';
   $cardWrapper.appendChild($cardContainer);
   var $cardNav = document.createElement('div');
-  $cardNav.className = 'row card-nav';
+  $cardNav.className = 'row card-nav justify-center';
   $cardContainer.appendChild($cardNav);
+  var $responsiveDiv = document.createElement('div');
+  $responsiveDiv.className = 'col-full col-desktop-two-third col-desktop-half';
+  $cardNav.appendChild($responsiveDiv);
+  var $responsiveInnerRow = document.createElement('div');
+  $responsiveInnerRow.className = 'row';
+  $responsiveDiv.appendChild($responsiveInnerRow);
   var $backDiv = document.createElement('div');
   $backDiv.className = 'col-half flex align-center';
-  $cardNav.appendChild($backDiv);
+  $responsiveInnerRow.appendChild($backDiv);
   var $backIcon = document.createElement('i');
   $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
   var $backButton = document.createElement('button');
@@ -141,7 +147,7 @@ function renderPokemonCard(pokemon) {
   });
   var $viewDiv = document.createElement('div');
   $viewDiv.className = 'col-half flex flex-end align-center';
-  $cardNav.appendChild($viewDiv);
+  $responsiveInnerRow.appendChild($viewDiv);
   var $infoIcon = document.createElement('img');
   $infoIcon.className = 'info-icon';
   $infoIcon.setAttribute('src', 'images/info-icon.png');
