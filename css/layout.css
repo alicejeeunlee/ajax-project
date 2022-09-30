@@ -32,8 +32,8 @@
     flex-basis: calc(100%/3);
   }
 
-  .col-desktop-half {
-    flex-basis: 50%;
+  .col-desktop-two-third {
+    flex-basis: calc(200%/3);
   }
 
   .col-desktop-eighth {
@@ -50,7 +50,7 @@
     flex-basis: 20%;
   }
 
-  .col-desktop-third {
-    flex-basis: calc(100%/3);
+  .col-desktop-hald {
+    flex-basis: 50%;
   }
 }
