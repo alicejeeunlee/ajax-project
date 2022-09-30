@@ -30,11 +30,18 @@
   </header>
   <main>
     <div data-view="all" id="homepage" class="container view">
+      <div id="loading-spinner" class="row justify-center hidden">
+        <div class="pokeball">
+        </div>
+      </div>
       <div class="all-pokemon row wrap gap">
+      </div>
+      <div class="col-full no-search alert hidden">
+        <p>No results found... Try searching again!</p>
       </div>
     </div>
     <div data-view="favorites" id="favorites" class="container view hidden">
-      <div class="col-full no-pokemon">
+      <div class="col-full no-pokemon alert">
         <p>No Pokémon in Favorites List!</p>
       </div>
       <div class="favorite-pokemon row wrap gap">

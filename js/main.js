@@ -7,12 +7,17 @@ var $homepage = document.querySelector('#homepage');
 var $favorites = document.querySelector('#favorites');
 var $favoritePokemon = document.querySelector('.favorite-pokemon');
 var $noPokemon = document.querySelector('.no-pokemon');
+var $noSearch = document.querySelector('.no-search');
 
 function getPokemonEntry() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://pokeapi.co/api/v2/pokedex/2');
   xhr.responseType = 'json';
+  var $loadingSpinner = document.querySelector('#loading-spinner');
+  $loadingSpinner.classList.remove('hidden');
+  xhr.send();
   xhr.addEventListener('load', function () {
+    $loadingSpinner.classList.add('hidden');
     var APIdata = xhr.response;
     var allPokemon = APIdata.pokemon_entries;
     var $row = document.querySelector('.all-pokemon');
@@ -23,8 +28,8 @@ function getPokemonEntry() {
       pokemon.name = allPokemon[i].pokemon_species.name;
       $row.appendChild(renderPokemonEntries(pokemon));
     }
+    xhr.addEventListener('error', handleNetworkError);
   });
-  xhr.send();
 }
 getPokemonEntry();
 
@@ -55,7 +60,11 @@ function getPokemonDetail(id) {
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + id);
   xhr2.responseType = 'json';
+  var $loadingSpinner = document.querySelector('#loading-spinner');
+  $loadingSpinner.classList.remove('hidden');
+  xhr2.send();
   xhr2.addEventListener('load', function () {
+    $loadingSpinner.classList.add('hidden');
     var APIdata = xhr2.response;
     var pokemon = {
       entry_number: APIdata.id,
@@ -82,14 +91,18 @@ function getPokemonDetail(id) {
     data.currentPokemon = pokemon;
     getPokemonDescription(id);
   });
-  xhr2.send();
+  xhr2.addEventListener('error', handleNetworkError);
 }
 
 function getPokemonDescription(id) {
   var xhr3 = new XMLHttpRequest();
   xhr3.open('GET', 'https://pokeapi.co/api/v2/pokemon-species/' + id);
   xhr3.responseType = 'json';
+  var $loadingSpinner = document.querySelector('#loading-spinner');
+  $loadingSpinner.classList.remove('hidden');
+  xhr3.send();
   xhr3.addEventListener('load', function () {
+    $loadingSpinner.classList.add('hidden');
     var APIdata = xhr3.response;
     var allTextEntries = APIdata.flavor_text_entries;
     var englishText = [];
@@ -104,7 +117,11 @@ function getPokemonDescription(id) {
     var $main = document.querySelector('main');
     $main.appendChild($card);
   });
-  xhr3.send();
+  xhr3.addEventListener('error', handleNetworkError);
+}
+
+function handleNetworkError() {
+  alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
 }
 
 function renderPokemonCard(pokemon) {
@@ -115,11 +132,17 @@ function renderPokemonCard(pokemon) {
   $cardContainer.className = 'container';
   $cardWrapper.appendChild($cardContainer);
   var $cardNav = document.createElement('div');
-  $cardNav.className = 'row card-nav';
+  $cardNav.className = 'row card-nav justify-center';
   $cardContainer.appendChild($cardNav);
+  var $responsiveDiv = document.createElement('div');
+  $responsiveDiv.className = 'col-full col-desktop-two-third col-desktop-half';
+  $cardNav.appendChild($responsiveDiv);
+  var $responsiveInnerRow = document.createElement('div');
+  $responsiveInnerRow.className = 'row';
+  $responsiveDiv.appendChild($responsiveInnerRow);
   var $backDiv = document.createElement('div');
   $backDiv.className = 'col-half flex align-center';
-  $cardNav.appendChild($backDiv);
+  $responsiveInnerRow.appendChild($backDiv);
   var $backIcon = document.createElement('i');
   $backIcon.className = 'fa-solid fa-chevron-down fa-2xl';
   var $backButton = document.createElement('button');
@@ -141,7 +164,7 @@ function renderPokemonCard(pokemon) {
   });
   var $viewDiv = document.createElement('div');
   $viewDiv.className = 'col-half flex flex-end align-center';
-  $cardNav.appendChild($viewDiv);
+  $responsiveInnerRow.appendChild($viewDiv);
   var $infoIcon = document.createElement('img');
   $infoIcon.className = 'info-icon';
   $infoIcon.setAttribute('src', 'images/info-icon.png');
@@ -494,13 +517,20 @@ $searchInput.addEventListener('input', function search() {
   $searchIcon.classList.add('hidden');
   var $allEntries = document.querySelectorAll('.entries');
   var $searchInput = document.querySelector('#search').value;
+  var hiddenEntries = 0;
   for (var i = 0; i < $allEntries.length; i++) {
     if ($allEntries[i].innerText.toLowerCase()
       .includes($searchInput.toLowerCase())) {
       $allEntries[i].classList.remove('hidden');
     } else {
       $allEntries[i].classList.add('hidden');
+      hiddenEntries++;
     }
+  }
+  if (hiddenEntries === 151) {
+    $noSearch.classList.remove('hidden');
+  } else {
+    $noSearch.classList.add('hidden');
   }
 });
 
