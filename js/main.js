@@ -28,9 +28,7 @@ function getPokemonEntry() {
       pokemon.name = allPokemon[i].pokemon_species.name;
       $row.appendChild(renderPokemonEntries(pokemon));
     }
-    xhr.addEventListener('error', function () {
-      alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
-    });
+    xhr.addEventListener('error', handleNetworkError);
   });
 }
 getPokemonEntry();
@@ -93,9 +91,7 @@ function getPokemonDetail(id) {
     data.currentPokemon = pokemon;
     getPokemonDescription(id);
   });
-  xhr2.addEventListener('error', function () {
-    alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
-  });
+  xhr2.addEventListener('error', handleNetworkError);
 }
 
 function getPokemonDescription(id) {
@@ -121,9 +117,11 @@ function getPokemonDescription(id) {
     var $main = document.querySelector('main');
     $main.appendChild($card);
   });
-  xhr3.addEventListener('error', function () {
-    alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
-  });
+  xhr3.addEventListener('error', handleNetworkError);
+}
+
+function handleNetworkError() {
+  alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
 }
 
 function renderPokemonCard(pokemon) {
