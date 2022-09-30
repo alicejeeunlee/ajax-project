@@ -27,6 +27,9 @@ function getPokemonEntry() {
       pokemon.name = allPokemon[i].pokemon_species.name;
       $row.appendChild(renderPokemonEntries(pokemon));
     }
+    xhr.addEventListener('error', function () {
+      alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+    });
   });
 }
 getPokemonEntry();
@@ -89,6 +92,9 @@ function getPokemonDetail(id) {
     data.currentPokemon = pokemon;
     getPokemonDescription(id);
   });
+  xhr2.addEventListener('error', function () {
+    alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+  });
 }
 
 function getPokemonDescription(id) {
@@ -97,6 +103,7 @@ function getPokemonDescription(id) {
   xhr3.responseType = 'json';
   var $loadingSpinner = document.querySelector('#loading-spinner');
   $loadingSpinner.classList.remove('hidden');
+  xhr3.send();
   xhr3.addEventListener('load', function () {
     $loadingSpinner.classList.add('hidden');
     var APIdata = xhr3.response;
@@ -113,7 +120,9 @@ function getPokemonDescription(id) {
     var $main = document.querySelector('main');
     $main.appendChild($card);
   });
-  xhr3.send();
+  xhr3.addEventListener('error', function () {
+    alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+  });
 }
 
 function renderPokemonCard(pokemon) {
