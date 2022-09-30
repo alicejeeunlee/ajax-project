@@ -12,7 +12,11 @@ function getPokemonEntry() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://pokeapi.co/api/v2/pokedex/2');
   xhr.responseType = 'json';
+  var $loadingSpinner = document.querySelector('#loading-spinner');
+  $loadingSpinner.classList.remove('hidden');
+  xhr.send();
   xhr.addEventListener('load', function () {
+    $loadingSpinner.classList.add('hidden');
     var APIdata = xhr.response;
     var allPokemon = APIdata.pokemon_entries;
     var $row = document.querySelector('.all-pokemon');
@@ -24,7 +28,6 @@ function getPokemonEntry() {
       $row.appendChild(renderPokemonEntries(pokemon));
     }
   });
-  xhr.send();
 }
 getPokemonEntry();
 
@@ -55,7 +58,11 @@ function getPokemonDetail(id) {
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + id);
   xhr2.responseType = 'json';
+  var $loadingSpinner = document.querySelector('#loading-spinner');
+  $loadingSpinner.classList.remove('hidden');
+  xhr2.send();
   xhr2.addEventListener('load', function () {
+    $loadingSpinner.classList.add('hidden');
     var APIdata = xhr2.response;
     var pokemon = {
       entry_number: APIdata.id,
@@ -82,14 +89,16 @@ function getPokemonDetail(id) {
     data.currentPokemon = pokemon;
     getPokemonDescription(id);
   });
-  xhr2.send();
 }
 
 function getPokemonDescription(id) {
   var xhr3 = new XMLHttpRequest();
   xhr3.open('GET', 'https://pokeapi.co/api/v2/pokemon-species/' + id);
   xhr3.responseType = 'json';
+  var $loadingSpinner = document.querySelector('#loading-spinner');
+  $loadingSpinner.classList.remove('hidden');
   xhr3.addEventListener('load', function () {
+    $loadingSpinner.classList.add('hidden');
     var APIdata = xhr3.response;
     var allTextEntries = APIdata.flavor_text_entries;
     var englishText = [];
