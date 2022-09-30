@@ -7,6 +7,7 @@ var $homepage = document.querySelector('#homepage');
 var $favorites = document.querySelector('#favorites');
 var $favoritePokemon = document.querySelector('.favorite-pokemon');
 var $noPokemon = document.querySelector('.no-pokemon');
+var $noSearch = document.querySelector('.no-search');
 
 function getPokemonEntry() {
   var xhr = new XMLHttpRequest();
@@ -518,13 +519,20 @@ $searchInput.addEventListener('input', function search() {
   $searchIcon.classList.add('hidden');
   var $allEntries = document.querySelectorAll('.entries');
   var $searchInput = document.querySelector('#search').value;
+  var hiddenEntries = 0;
   for (var i = 0; i < $allEntries.length; i++) {
     if ($allEntries[i].innerText.toLowerCase()
       .includes($searchInput.toLowerCase())) {
       $allEntries[i].classList.remove('hidden');
     } else {
       $allEntries[i].classList.add('hidden');
+      hiddenEntries++;
     }
+  }
+  if (hiddenEntries === 151) {
+    $noSearch.classList.remove('hidden');
+  } else {
+    $noSearch.classList.add('hidden');
   }
 });
 

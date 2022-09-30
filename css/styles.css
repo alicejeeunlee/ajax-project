@@ -132,7 +132,7 @@ header {
 }
 
 .card-nav {
-  padding: 1.3rem 0;
+  padding-top: 1.3rem;
 }
 
 i {
@@ -159,7 +159,7 @@ i {
 }
 
 .card-img {
-  width: 300px;
+  width: 290px;
   position: relative;
   z-index: 2;
 }
@@ -170,7 +170,7 @@ i {
   background-color: white;
   position: absolute;
   width: 100vw;
-  height: 70vh;
+  height: 75vh;
   left: 0;
   bottom: 0;
   border-radius: 100px 100px 0 0;
@@ -178,7 +178,8 @@ i {
 }
 
 .card-text-padding {
-  padding: 5.5rem 1.5rem;
+  margin-top: 7.5rem;
+  padding: 0 1.5rem;
 }
 
 .card-id {
@@ -217,12 +218,10 @@ i {
 }
 
 .info-box {
-  margin-top: 0.7rem;
   font-size: 1.6rem;
 }
 
 .stats-box {
-  margin-top: 1.5rem;
   font-size: 1.6rem;
   line-height: 1.6rem;
 }
@@ -381,6 +380,11 @@ i {
 
   .gap {
     row-gap: 2rem;
+  }
+
+  .text-boundary {
+    width: 75vw;
+    left: 13%;
   }
 }
 
