@@ -6,7 +6,7 @@ A dynamic HTML, CSS, and JavaScript web application for Pokémon fans featuring 
 
 This solo project was built with HTML, CSS, and vanilla JavaScript to get a good foundation on DOM manipulation, AJAX, working with data from an API, and JSON to store and retrieve data from previous sessions.
 
-Having grown up playing the games and watching the series, I wanted to take a stab at recreating the Pokédex for Generation 1 (the best) Pokémon while adding a little bit of ~spice~.
+Having grown up playing the games and watching the series, I wanted to take a stab at recreating the Pokédex for Generation 1 (the best) Pokémon while adding a little bit of *spice*~.
 
 ### Live Demo
 
