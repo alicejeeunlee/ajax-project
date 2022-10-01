@@ -21,8 +21,8 @@ Try the application live at https://alicejeeunlee.github.io/pokedex/
 
 ## Preview
 
-<img src='images/view-details.gif'>
-<img src='images/search.gif'>
+<img src='images/readme-preview-view-details.gif'>
+<img src='images/readme-preview-search.gif'>
 
 ## Features
 
