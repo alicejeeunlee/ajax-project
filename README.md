@@ -21,6 +21,9 @@ Try the application live at https://alicejeeunlee.github.io/pokedex/
 
 ## Preview
 
+<img src='images/view-details.gif'>
+<img src='images/search.gif'>
+
 ## Features
 
 * User can view entries of all Pokémon
